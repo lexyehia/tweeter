@@ -1,6 +1,6 @@
 section.new-tweet {
    position: relative;
-   margin: 2em;
+   margin: 0 2em;
    background-color: #eee;
    border-radius: 5px;
    border: 1px solid #CFCFCF;
@@ -15,10 +15,16 @@ section.new-tweet {
     position: relative;
     margin: 0 10px 0 10px;
     width: 364px;
+    padding: 5px;
 }
 
-.new-tweet input {
-    position: absolute;
-    bottom: 1;
-    right: 1;
+#new-tweet-bottom {
+    margin: 5px 10px 5px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#new-tweet-bottom .counter {
+    font-style: italic;
+    font-size: 85%;
 }
