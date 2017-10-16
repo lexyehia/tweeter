@@ -1,0 +1,13 @@
+/*
+ * Navbar layout stuff
+ */
+
+nav {
+    box-sizing: border-box;
+    height: 80px;
+    width: 100%;
+    background-color: #00a087;
+    color: #e8fdff;
+    position: fixed;
+    top: 0;
+}
