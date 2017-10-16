@@ -4,28 +4,74 @@ section#tweets {
 }
 
 section#tweets article {
-    margin: 10px;
     height: 200px;
     background-color: #ffffff;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
 }
 
 section#tweets article header {
     position: relative;
-    height: 50px;
+    height: 75px;
     width: 100%;
     background-color: #eee;
 }
 
-section#tweets article .tweet-body {
+.tweet-author-avatar {
     position: relative;
+    height: 75px;
+    width: 75px;
+}
+
+.tweet-author-name {
+    position: relative;
+    font-size: 170%;
+    font-weight: 700;
+}
+
+.tweet-author-username {
+    position: relative;
+    margin-top: 7px;
+    right: 1;
+    font-size: 90%;
+    color: grey;
+}
+
+.tweet-body {
+    position: relative;
+    padding: 10px;
     width: 100%;
-    height: 125px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 107%;
+}
+
+section#tweets article header > span {
+    top: 1; 
+    position: absolute;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 309px;
+    height: 75px;
+    display: inline-flex;
+    justify-content: space-between;
 }
 
 section#tweets article footer {
-    position: relative;
+    position: absolute;
     height: 25px;
     width: 100%;
+    border-top: 1px solid #cfcfcf;
+}
+
+.tweet-age {
+    position: absolute;
+    left: 10px;
+    top: 3px;
+    font-size: 80%;
 }
 
 
