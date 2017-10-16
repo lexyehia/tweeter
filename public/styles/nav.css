@@ -9,6 +9,8 @@ nav {
     background-color: #00a087;
     color:            #e8fdff;
     position:         fixed;
+    overflow: hidden;
+    z-index: 2;
     top:              0;
     padding:          0 2em 0 2em;
 }
