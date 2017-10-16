@@ -28,3 +28,7 @@ section.new-tweet {
     font-style: italic;
     font-size: 85%;
 }
+
+#new-tweet-bottom .counter.invalid {
+    color: red;
+}
