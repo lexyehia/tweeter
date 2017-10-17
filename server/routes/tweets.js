@@ -41,21 +41,22 @@ module.exports = function(DataHelpers) {
     });
   });
 
-  tweetsRoutes.post("/:id/like", function(req, res) {
+  tweetsRoutes.post("/like", function(req, res) {
 
-    Tweet.findById(req.params.id, (err, tweet) => {
+    Tweet.findById(req.body.id, (err, tweet) => {
       if (err) {
         res.status(500).json({error: err.message})
         return
+      } else if (tweet === null) {
+        res.status(500).json({error: 'No tweet found'});
       }
 
-      tweet.likes++;
-
+      tweet.likes = (tweet.likes || 0) + 1;
       tweet.save((err) => {
         if (err) {
           res.status(500).json({error: err.message})
         } else {
-          res.status(201)
+          res.status(200).end();
         }
       })
     })

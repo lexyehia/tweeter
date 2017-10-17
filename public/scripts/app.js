@@ -16,13 +16,17 @@ $(document).ready(function() {
             }
         });        
         $('article').find('.tweet-likes-count').trigger('change');
-    });
 
-    $('.tweet-like').click(function(e) {
-        var articleID = $(this).closest('article').data('id');
-        $.post('/tweets/' + articleID + '/like', function() {
-            var count = $(this).closest('article').find('.tweet-likes-count');
-            count.text((+count.text() + 1).toString());
+        $('.tweet-like').click(function (e) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            var counter = $(this).closest('article').find('.tweet-likes-count')
+            var articleID = $(this).closest('article').data('id');            
+            $.post('/tweets/like', 'id=' + articleID, function() {
+                counter.text((+counter.text() + 1).toString());
+                $(counter).trigger('change');
+            })
         })
     });
 
@@ -38,7 +42,8 @@ $(document).ready(function() {
             $.post( "/tweets/", $(this).serialize(), function() {
                 $.get('/tweets', function(data) {
                     var html = renderTweets(data);
-                    $('#tweets > article').replaceWith(html);            
+                    $('#tweets > article').replaceWith(html);
+                    $('main').trigger('change');         
                 });
             });
             $('.new-tweet').slideUp('fast');
@@ -54,6 +59,7 @@ $(document).ready(function() {
         
         return false; 
     })
+
 });
 
 function loadTweets(cb) {
