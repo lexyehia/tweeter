@@ -4,7 +4,15 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-function renderTweers(tweets) {
+$(document).ready(function () {
+    loadTweets();
+})
+
+function loadTweets() {
+    $.get('/tweets', renderTweets)
+}
+
+function renderTweets(tweets) {
     var str = '';
 
     for(tweet of tweets) {
