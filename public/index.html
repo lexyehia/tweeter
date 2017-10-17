@@ -67,7 +67,7 @@
 
       </section>
 
-      <form id="register-user-form" action="http://google.com">
+      <form id="register-user-form">
         <label for="name">Name</label>
         <input type="text" id="register-user-name" name="name">
         <label for="handle">Handle</label>
@@ -76,19 +76,17 @@
         <input type="password" id="register-user-password" name="password">
         <label for="vpassword">Verify Password</label>
         <input type="password" id="register-user-vpassword" name="vpassword">
-        <button type="submit">Register</button>
+        <!-- <button type="submit">Register</button> -->
       </form>
 
 
-      <section class="login-user">
-        <h2>Compose Tweet</h2>
-        <form action="/tweets/" method="post">
-          <textarea id="new-text-input" name="text" placeholder="What are you humming about?"></textarea>
-          <span id="new-tweet-bottom">
-          <span><input type="submit" value="Tweet"></span>
-          <span class="counter">140</span></span>
-        </form>
-      </section>
+      <form id="login-user-form" action="#">
+        <label for="handle">Handle</label>
+        <input type="text" id="login-user-handle" name="handle">
+        <label for="password">Password</label>
+        <input type="password" id="login-user-password" name="password">
+        <button type="submit">Login</button>
+      </form>
 
     </main>
 

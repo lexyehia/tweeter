@@ -33,8 +33,15 @@ $(document).ready(function() {
         $('#register-user-form').dialog('open');
     }) 
 
-    $('#register-user-button').submit(function(e) {
-        $.post('/users/new')
+    $('#register-user-form').submit(function(e) {
+        e.preventDefault();
+        if ($('#register-user-password').val() !== $('#register-user-vpassword').val()) {
+            alert("Passwords don't match");
+        } else {
+            $(this).dialog('close');
+            $.post('/users/new', $(this).serialize());
+        }
+        return false;
     }) 
 })
 
