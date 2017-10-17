@@ -74,5 +74,18 @@ section#tweets article footer {
     font-size: 80%;
 }
 
+.tweet-side-icons {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    height: 25px;
+}
+
+.tweet-side-icon {
+    width: 16px;
+    height: 16px;
+    margin: 0 2px;
+    color: #7BC4B8
+}
 
 
