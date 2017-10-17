@@ -21,8 +21,8 @@ usersRoutes.post("/new", function(req, res) {
   
   newUser.save((err, user) => {
     if (err) throw err;
-    req.session = newUser._id.toString();
-    res.status(200).send();
+    req.session.user_id = newUser._id.toString();
+    res.status(200).end();
   })
 });
 

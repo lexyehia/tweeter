@@ -9,10 +9,18 @@ const bodyParser    = require("body-parser");
 const app           = express();
 const mongoose      = require("mongoose");
 const morgan        = require('morgan');
+const cookieSession = require('cookie-session');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(cookieSession({
+  name: 'tweeter',
+  keys: ['Hello', 'There'],
+ 
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 // The in-memory database of tweets. It's a basic object with an array in it.
 // const db = require("./lib/in-memory-db");
