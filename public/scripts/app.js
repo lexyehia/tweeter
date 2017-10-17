@@ -50,9 +50,7 @@ $(document).ready(function() {
         e.preventDefault();
         var input = $(this).find('textarea').val();
 
-        if (!Cookies.get('user_id')) {
-            alert('Please login first!')
-        } else if (input === null || input === '') {
+        if (input === null || input === '') {
             alert('Please enter some text first!');
         } else if (input.length > 140) {
             alert('Your tweet is way too long!');
@@ -168,18 +166,15 @@ function increaseLikes(e) {
     var articleID = $article.data('id'); 
     var userID = $article.find('.tweet-author-username').data('user-id')
 
-    if (userID) {
-        if (Cookies.get('user_id') && Cookies.get('user_id') !== userID) {
-            $.post('/tweets/like', 'id=' + articleID, function() {
-                counter.text((+counter.text() + 1).toString());
-                $(counter).trigger('likes-change');
-            })
-        } 
-    } else {
+    if (Cookies.get('user_id') && Cookies.get('user_id') !== userID) {
         $.post('/tweets/like', 'id=' + articleID, function() {
             counter.text((+counter.text() + 1).toString());
             $(counter).trigger('likes-change');
         })
-    } 
+    } else if (!Cookies.get('user_id')) {
+        alert('Please login first to like tweets!')
+    } else if (Cookies.get('user_id') === userID) {
+        alert('Stop trying to like your own tweets!')
+    }
 }
 
