@@ -22,10 +22,11 @@ $(document).ready(function() {
     });
 
     $('main').on('new-load', 'article', function() {
-        if($(this).find('.tweet-likes-count').text() === '0') {
-            $(this).find('.tweet-likes-count').hide();
+        var $counter = $(this).find('.tweet-likes-count');
+        if(+$counter.text() === 0) {
+            $counter.hide();
         } else {
-            $(this).find('.tweet-likes-count').show();
+            $counter.show();
         }
 
         $(this).find('.tweet-side-icons').hide();
@@ -33,14 +34,23 @@ $(document).ready(function() {
 
     $('main').on('click', '.tweet-like', function (e) {
         e.stopPropagation();
-        e.stopImmediatePropagation();
-        
+
         var counter = $(this).closest('article').find('.tweet-likes-count')
         var articleID = $(this).closest('article').data('id');            
         $.post('/tweets/like', 'id=' + articleID, function() {
             counter.text((+counter.text() + 1).toString());
-            $(counter).trigger('change');
+            $(counter).trigger('likes-change');
         })
+    });
+
+    $('main').on('likes-change', '.tweet-likes-count', function (e) {
+        e.stopPropagation();
+
+        if(+$(this).text() === 0) {
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
     });
 
     // MISC
