@@ -5,6 +5,7 @@
  */
 
 $(document).ready(function() {
+    $('.new-tweet').hide();
     loadTweets();
 
     $('.new-tweet').find('form').submit(function() {
@@ -23,6 +24,15 @@ $(document).ready(function() {
             });
         }
         return false;        
+    });
+
+    $('#compose-tweet').click(function() {
+
+        $('.new-tweet').slideToggle('fast', function() {
+            $('#new-text-input').focus();                    
+        });
+        
+        return false; 
     })
 })
 
