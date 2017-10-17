@@ -6,7 +6,25 @@
 
 $(document).ready(function() {
     $('.new-tweet').hide();
-    loadTweets();
+
+    loadTweets(function() {
+        $('article').find('.tweet-likes-count').on('change', function() {
+            if($(this).text() === '0') {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });        
+        $('article').find('.tweet-likes-count').trigger('change');
+    });
+
+    $('.tweet-like').click(function(e) {
+        var articleID = $(this).closest('article').data('id');
+        $.post('/tweets/' + articleID + '/like', function() {
+            var count = $(this).closest('article').find('.tweet-likes-count');
+            count.text((+count.text() + 1).toString());
+        })
+    });
 
     $('.new-tweet').find('form').submit(function(e) {
         e.preventDefault();
@@ -36,12 +54,13 @@ $(document).ready(function() {
         
         return false; 
     })
-})
+});
 
-function loadTweets() {
+function loadTweets(cb) {
     $.get('/tweets', function(data) {
         var html = renderTweets(data);
-        $('#tweets').append(html);            
+        $('#tweets').append(html);    
+        cb();         
     })
 }
 
@@ -63,7 +82,7 @@ function renderTweets(tweets) {
 
     var tweetCreated = parseHumanDate(data.created_at);
 
-    var str = '<article><header>';
+    var str = '<article data-id="' + data._id.toString() + '"><header>';
     str    += '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>';
     str    += '<span class="tweet-author-name">' + escape(data.user.name) + '</span>';
     str    += '<span class="tweet-author-username">' + escape(data.user.handle) + '</span></span></header>';
@@ -72,7 +91,8 @@ function renderTweets(tweets) {
     str    += '<span class="tweet-side-icons">';
     str    += '<i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>';
     str    += '<i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>';
-    str    += '<i class="fa fa-heart tweet-side-icon" aria-hidden="true"></i>';
+    str    += '<i class="fa fa-heart tweet-side-icon tweet-like" aria-hidden="true"></i>';
+    str    += '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+ (data.likes || 0) + '</span>';    
     str    += '</span></footer></article>';
 
     return str;
