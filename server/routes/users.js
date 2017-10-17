@@ -21,8 +21,22 @@ usersRoutes.post("/new", function(req, res) {
   
   newUser.save((err, user) => {
     if (err) throw err;
-    req.session.user_id = newUser._id.toString();
+    res.cookie('user_id', newUser._id.toString());
     res.status(200).end();
+  })
+});
+
+usersRoutes.post("/login", function(req, res) {
+  User.findOne({handle: req.body.handle}, function (err, user) {
+    if (err) throw err;
+
+    if (!user) {
+      res.status(403).end();
+      return;
+    } else if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      res.cookie('user_id', user._id.toString())
+      res.status(200).end()
+    }
   })
 });
 

@@ -9,18 +9,15 @@ const bodyParser    = require("body-parser");
 const app           = express();
 const mongoose      = require("mongoose");
 const morgan        = require('morgan');
-const cookieSession = require('cookie-session');
+const path          = require('path');
+const cookieParser  = require('cookie-parser');
 
 app.use(morgan('dev'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(cookieSession({
-  name: 'tweeter',
-  keys: ['Hello', 'There'],
- 
-  // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}))
+app.use(cookieParser())
 
 // The in-memory database of tweets. It's a basic object with an array in it.
 // const db = require("./lib/in-memory-db");
@@ -41,6 +38,9 @@ const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 const usersRoutes = require('./routes/users');
 
 // Mount the tweets routes at the "/tweets" path prefix:
+app.get('/', (req, res) => {
+  res.render('index');
+})
 app.use("/tweets", tweetsRoutes);
 app.use("/users", usersRoutes);
 
