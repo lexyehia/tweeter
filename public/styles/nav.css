@@ -26,3 +26,32 @@ nav {
     font-size: 200%;
     float: left;    
 }
+
+.nav-bar-right {
+    display: flex;
+    flex-flow: row;
+    width: auto;
+    justify-content: flex-end;
+    margin: 10px 0;
+    height: 60px;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-bar-right > li {
+    margin: 20px 10px;
+    border: solid 1px black;
+    padding: 23px 17px;
+    background-color: #E7FDFF;
+    color: rgb(14, 184, 133);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 110%;
+}
+
+.nav-bar-right > li:hover {
+    border: solid 1px black;
+    background-color: white;
+    color: black;
+
+}
