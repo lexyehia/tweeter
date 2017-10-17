@@ -4,6 +4,17 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+function renderTweers(tweets) {
+    var str = '';
+
+    for(tweet of tweets) {
+        str += createTweetElement(tweet);
+    }
+
+    var html = $.parseHTML(str);
+
+    $('#tweets').append(html);
+}
 
 
  function createTweetElement(data) {
