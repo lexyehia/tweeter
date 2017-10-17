@@ -8,7 +8,8 @@ $(document).ready(function() {
     $('.new-tweet').hide();
     loadTweets();
 
-    $('.new-tweet').find('form').submit(function() {
+    $('.new-tweet').find('form').submit(function(e) {
+        e.preventDefault();
         var input = $(this).find('textarea').val();
 
         if (input === null || input === '') {
@@ -22,8 +23,9 @@ $(document).ready(function() {
                     $('#tweets > article').replaceWith(html);            
                 });
             });
+            $('.new-tweet').slideUp('fast');
+            $(this).find('textarea').val('').trigger('counter-change');
         }
-        return false;        
     });
 
     $('#compose-tweet').click(function() {
