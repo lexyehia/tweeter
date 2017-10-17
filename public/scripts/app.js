@@ -23,9 +23,9 @@ function renderTweers(tweets) {
 
     var str = '<article><header>';
     str    += '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>';
-    str    += '<span class="tweet-author-name">' + data.user.name + '</span>';
-    str    += '<span class="tweet-author-username">' + data.user.handle + '</span></span></header>';
-    str    += '<div class="tweet-body">' + data.content.text + '</div>';
+    str    += '<span class="tweet-author-name">' + escape(data.user.name) + '</span>';
+    str    += '<span class="tweet-author-username">' + escape(data.user.handle) + '</span></span></header>';
+    str    += '<div class="tweet-body">' + escape(data.content.text) + '</div>';
     str    += '<footer><span class="tweet-age">' + tweetCreated + ' ago</span>';
     str    += '<span class="tweet-side-icons">';
     str    += '<i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>';
@@ -36,6 +36,12 @@ function renderTweers(tweets) {
     return str;
 }
 
+function escape(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+  
 function parseHumanDate(timeCreated) {
     var seconds = Math.floor((Date.now() - timeCreated) / 1000);
     
