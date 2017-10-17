@@ -3,16 +3,18 @@ const mongoose = require("mongoose"),
 
 let tweetSchema = new Schema({
     user: {
-        name: 'Newton',
+        name: String,
         avatars: {
-            small: '',
-            regular: '',
-            large: ''
+            small: String,
+            regular: String,
+            large: String
         },
-        handle: ''
+        handle: String
    },
    content: {
-       text: ''
+       text: String
    },
-   created_at: ''
-})
+   created_at: { type: Date, default: Date.now }
+}, {collection: 'tweets'});
+
+module.exports = mongoose.model('Tweet', tweetSchema);

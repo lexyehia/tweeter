@@ -83,7 +83,8 @@ function escape(str) {
 }
   
 function parseHumanDate(timeCreated) {
-    var seconds = Math.floor((Date.now() - timeCreated) / 1000);
+    var created = new Date(timeCreated);
+    var seconds = Math.floor((Date.now() - created) / 1000);
     
     var interval = Math.floor(seconds / 31536000);
     if (interval > 1) {
