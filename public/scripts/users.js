@@ -53,6 +53,7 @@ $(document).ready(function() {
         e.stopPropagation();
         Cookies.remove('user_id');
         alert('Successfully logged out');
+        checkSession();
     }) 
 
     $('#register-user-form').submit(function(e) {
@@ -61,7 +62,7 @@ $(document).ready(function() {
             alert("Passwords don't match");
         } else {
             $(this).dialog('close');
-            $.post('/users/new', $(this).serialize());
+            $.post('/users/new', $(this).serialize(), checkSession);
         }
         return false;
     }) 
@@ -71,9 +72,23 @@ $(document).ready(function() {
         
         $.post('/users/login', $(this).serialize(), function() {
             $('#login-user-form').dialog('close');
-            // Trigger cookie check
+            checkSession();
         }).fail(function() {
             alert('Handle or password are incorrect. Please try again');
         })
     }) 
+
+    checkSession()
 })
+
+function checkSession() {
+    if(Cookies.get('user_id')) {
+        $('#register-user-button').hide();
+        $('#login-user-button').hide();
+        $('#logout-user-button').show()        
+    } else {
+        $('#register-user-button').show()
+        $('#login-user-button').show()
+        $('#logout-user-button').hide()        
+    }
+}
