@@ -18,6 +18,7 @@
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="/vendor/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/vendor/js-cookie.js"></script>
     <script src="https://use.fontawesome.com/cb2ce4e278.js"></script>
 
     <!-- App JS -->
@@ -41,6 +42,10 @@
         <li id="register-user-button">
           <i class="fa fa-user" aria-hidden="true"></i>
           <span>Register</span>
+        </li>
+        <li id="logout-user-button">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+          <span>Logout</span>
         </li>
         <li id="compose-tweet">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -85,7 +90,6 @@
         <input type="text" id="login-user-handle" name="handle">
         <label for="password">Password</label>
         <input type="password" id="login-user-password" name="password">
-        <button type="submit">Login</button>
       </form>
 
     </main>

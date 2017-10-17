@@ -49,6 +49,12 @@ $(document).ready(function() {
         $('#register-user-form').dialog('open');
     }) 
 
+    $('#logout-user-button').click(function(e) {
+        e.stopPropagation();
+        Cookies.remove('user_id');
+        alert('Successfully logged out');
+    }) 
+
     $('#register-user-form').submit(function(e) {
         e.preventDefault();
         if ($('#register-user-password').val() !== $('#register-user-vpassword').val()) {

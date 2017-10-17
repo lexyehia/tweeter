@@ -1,6 +1,6 @@
 "use strict";
 
-const express       = require('express');
+const express      = require('express');
 const usersRoutes  = express.Router();
 const User         = require('../models/user');
 const bcrypt       = require('bcrypt');
@@ -35,7 +35,10 @@ usersRoutes.post("/login", function(req, res) {
       return;
     } else if (user && bcrypt.compareSync(req.body.password, user.password)) {
       res.cookie('user_id', user._id.toString())
-      res.status(200).end()
+      res.status(200).end();
+      return;
+    } else {
+      res.status(403).end()      
     }
   })
 });
