@@ -4,24 +4,46 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-$(document).ready(function () {
+$(document).ready(function() {
     loadTweets();
+
+    $('.new-tweet').find('form').submit(function() {
+        var input = $(this).find('textarea').val();
+
+        if (input === null || input === '') {
+            alert('Please enter some text first!');
+        } else if (input.length > 140) {
+            alert('Your tweet is way too long!');
+        } else {
+            $.post( "/tweets/", $(this).serialize(), function() {
+                $.get('/tweets', function(data) {
+                    var html = renderTweets(data);
+                    $('#tweets > article').replaceWith(html);            
+                });
+            });
+        }
+        return false;        
+    })
 })
 
 function loadTweets() {
-    $.get('/tweets', renderTweets)
+    $.get('/tweets', function(data) {
+        var html = renderTweets(data);
+        $('#tweets').append(html);            
+    })
 }
 
 function renderTweets(tweets) {
     var str = '';
+
+    tweets = tweets.reverse();
 
     for(tweet of tweets) {
         str += createTweetElement(tweet);
     }
 
     var html = $.parseHTML(str);
-
-    $('#tweets').append(html);
+    return html;
 }
 
 
