@@ -6,6 +6,7 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>  
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700,700i" rel="stylesheet">
 
     <!-- App CSS -->
@@ -16,12 +17,14 @@
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="/vendor/jquery-ui.min.js"></script>
     <script src="https://use.fontawesome.com/cb2ce4e278.js"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
     <script type="text/javascript" src="/scripts/tweet-highlighter.js"></script>
+    <script type="text/javascript" src="/scripts/users.js"></script>
   </head>
 
   <body>
@@ -31,6 +34,14 @@
       <img class="logo" src="/images/bird.png">
       <span class="header">Tweeter</span>
       <ul class="nav-bar-right">
+        <li id="login-user-button">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <span>Login</span>
+        </li>
+        <li id="register-user-button">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <span>Register</span>
+        </li>
         <li id="compose-tweet">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           <span>Compose</span>
@@ -54,6 +65,29 @@
 
       <section id="tweets">
 
+      </section>
+
+      <form id="register-user-form" action="http://google.com">
+        <label for="name">Name</label>
+        <input type="text" id="register-user-name" name="name">
+        <label for="handle">Handle</label>
+        <input type="text" id="register-user-handle" name="handle">
+        <label for="password">Password</label>
+        <input type="password" id="register-user-password" name="password">
+        <label for="vpassword">Verify Password</label>
+        <input type="password" id="register-user-vpassword" name="vpassword">
+        <button type="submit">Register</button>
+      </form>
+
+
+      <section class="login-user">
+        <h2>Compose Tweet</h2>
+        <form action="/tweets/" method="post">
+          <textarea id="new-text-input" name="text" placeholder="What are you humming about?"></textarea>
+          <span id="new-tweet-bottom">
+          <span><input type="submit" value="Tweet"></span>
+          <span class="counter">140</span></span>
+        </form>
       </section>
 
     </main>
