@@ -32,16 +32,7 @@ $(document).ready(function() {
         $(this).find('.tweet-side-icons').hide();
     });
 
-    $('main').on('click', '.tweet-like', function (e) {
-        e.stopPropagation();
-
-        var counter = $(this).closest('article').find('.tweet-likes-count')
-        var articleID = $(this).closest('article').data('id');            
-        $.post('/tweets/like', 'id=' + articleID, function() {
-            counter.text((+counter.text() + 1).toString());
-            $(counter).trigger('likes-change');
-        })
-    });
+    $('main').on('click', '.tweet-like', increaseLikes);
 
     $('main').on('likes-change', '.tweet-likes-count', function (e) {
         e.stopPropagation();
@@ -59,7 +50,9 @@ $(document).ready(function() {
         e.preventDefault();
         var input = $(this).find('textarea').val();
 
-        if (input === null || input === '') {
+        if (!Cookies.get('user_id')) {
+            alert('Please login first!')
+        } else if (input === null || input === '') {
             alert('Please enter some text first!');
         } else if (input.length > 140) {
             alert('Your tweet is way too long!');
@@ -116,7 +109,7 @@ function renderTweets(tweets) {
     var str = '<article data-id="' + data._id.toString() + '"><header>';
     str    += '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>';
     str    += '<span class="tweet-author-name">' + escape(data.user.name) + '</span>';
-    str    += '<span class="tweet-author-username">' + escape(data.user.handle) + '</span></span></header>';
+    str    += '<span class="tweet-author-username" data-user-id="' + (data.user.user_id || '') + '">' + escape(data.user.handle) + '</span></span></header>';
     str    += '<div class="tweet-body">' + escape(data.content.text) + '</div>';
     str    += '<footer><span class="tweet-age">' + tweetCreated + ' ago</span>';
     str    += '<span class="tweet-side-icons">';
@@ -154,11 +147,39 @@ function parseHumanDate(timeCreated) {
         return interval + ' days';
     }
 
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + ' hours';
+    }
+
     interval = Math.floor(seconds / 60);
     if (interval > 1) {
         return interval + ' minutes';
     }
 
     return Math.floor(seconds) + ' seconds';
+}
+
+function increaseLikes(e) {
+    e.stopPropagation();
+    
+    var $article = $(this).closest('article')
+    var counter = $article.find('.tweet-likes-count')
+    var articleID = $article.data('id'); 
+    var userID = $article.find('.tweet-author-username').data('user-id')
+
+    if (userID) {
+        if (Cookies.get('user_id') && Cookies.get('user_id') !== userID) {
+            $.post('/tweets/like', 'id=' + articleID, function() {
+                counter.text((+counter.text() + 1).toString());
+                $(counter).trigger('likes-change');
+            })
+        } 
+    } else {
+        $.post('/tweets/like', 'id=' + articleID, function() {
+            counter.text((+counter.text() + 1).toString());
+            $(counter).trigger('likes-change');
+        })
+    } 
 }
 

@@ -5,6 +5,7 @@ const userHelper    = require("../lib/util/user-helper")
 const express       = require('express');
 const tweetsRoutes  = express.Router();
 const Tweet         = require('../models/tweet');
+const User          = require('../models/user')
 
 module.exports = function(DataHelpers) {
 
@@ -24,21 +25,50 @@ module.exports = function(DataHelpers) {
       return;
     }
 
-    const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
-    const tweet = {
-      user: user,
+    let tweet = new Tweet({
       content: {
         text: req.body.text
       }
-    };
-
-    DataHelpers.saveTweet(tweet, (err) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-      } else {
-        res.status(201).send();
-      }
     });
+
+    if(req.cookies['user_id']) {
+      User.findById(req.cookies['user_id'], (err, user) => {
+        if (err) throw err;
+
+        tweet.user = {
+          name: user.name,
+          avatars: {
+            small: user.avatars.small,
+            regular: user.avatars.regular,
+            large: user.avatars.large
+          },
+          handle: '@' + user.handle,
+          user_id: user._id.toString()
+        }
+          
+        tweet.save((err) => {
+          if (err) throw err;
+          res.status(201).send();
+          return;
+        })
+      })
+    } else {
+      tweet.user = userHelper.generateRandomUser();
+
+      tweet.save((err) => {
+        if (err) throw err;
+        res.status(201).send();
+      })
+    }
+
+
+    // DataHelpers.saveTweet(tweet, (err) => {
+    //   if (err) {
+    //     res.status(500).json({ error: err.message });
+    //   } else {
+    //     res.status(201).send();
+    //   }
+    // });
   });
 
   tweetsRoutes.post("/like", function(req, res) {

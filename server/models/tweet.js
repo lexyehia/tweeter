@@ -9,7 +9,8 @@ let tweetSchema = new Schema({
             regular: String,
             large: String
         },
-        handle: String
+        handle: String,
+        user_id: String
    },
    content: {
        text: String
