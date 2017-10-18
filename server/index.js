@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, '../client/dist/')));
 app.use(cookieParser())
 
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
@@ -36,9 +36,6 @@ const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 const usersRoutes = require('./routes/users');
 
 // Mount the tweets routes at the "/tweets" path prefix:
-app.get('/', (req, res) => {
-    res.render('index');
-})
 
 app.use("/tweets", tweetsRoutes)
 app.use("/users", usersRoutes)
