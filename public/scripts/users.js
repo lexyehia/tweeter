@@ -12,7 +12,7 @@ $(document).ready(function() {
             {
                 text: "Close",
                 click: function() {
-                    $( this ).dialog( "close" );
+                    $(this).dialog( "close" );
                 }
             }
         ],
@@ -42,19 +42,19 @@ $(document).ready(function() {
     $('#login-user-button').click(function(e) {
         e.stopPropagation();
         $('#login-user-form').dialog('open');
-    }) 
+    })
 
     $('#register-user-button').click(function(e) {
         e.stopPropagation();
         $('#register-user-form').dialog('open');
-    }) 
+    })
 
     $('#logout-user-button').click(function(e) {
         e.stopPropagation();
         Cookies.remove('user_id');
         alert('Successfully logged out');
         checkSession();
-    }) 
+    })
 
     $('#register-user-form').submit(function(e) {
         e.preventDefault();
@@ -65,18 +65,18 @@ $(document).ready(function() {
             $.post('/users/new', $(this).serialize(), checkSession);
         }
         return false;
-    }) 
+    })
 
     $('#login-user-form').submit(function(e) {
         e.preventDefault();
-        
+
         $.post('/users/login', $(this).serialize(), function() {
             $('#login-user-form').dialog('close');
             checkSession();
         }).fail(function() {
             alert('Handle or password are incorrect. Please try again');
         })
-    }) 
+    })
 
     checkSession()
 })
@@ -85,10 +85,10 @@ function checkSession() {
     if(Cookies.get('user_id')) {
         $('#register-user-button').hide();
         $('#login-user-button').hide();
-        $('#logout-user-button').show()        
+        $('#logout-user-button').show()
     } else {
         $('#register-user-button').show()
         $('#login-user-button').show()
-        $('#logout-user-button').hide()        
+        $('#logout-user-button').hide()
     }
 }

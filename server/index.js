@@ -2,15 +2,14 @@
 require('dotenv').config({path: __dirname + '/.env'});
 
 // Basic express setup:
-
-const PORT          = 8080;
-const express       = require("express");
-const bodyParser    = require("body-parser");
-const app           = express();
-const mongoose      = require("mongoose");
-const morgan        = require('morgan');
-const path          = require('path');
-const cookieParser  = require('cookie-parser');
+const PORT          = 8080
+const express       = require('express')
+const bodyParser    = require('body-parser')
+const app           = express()
+const mongoose      = require('mongoose')
+const morgan        = require('morgan')
+const path          = require('path')
+const cookieParser  = require('cookie-parser')
 
 app.use(morgan('dev'));
 app.set('views', path.join(__dirname, 'views'));
@@ -19,9 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser())
 
-// The in-memory database of tweets. It's a basic object with an array in it.
-// const db = require("./lib/in-memory-db");
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
+
 
 // The `data-helpers` module provides an interface to the database of tweets.
 // This simple interface layer has a big benefit: we could switch out the
@@ -39,11 +37,12 @@ const usersRoutes = require('./routes/users');
 
 // Mount the tweets routes at the "/tweets" path prefix:
 app.get('/', (req, res) => {
-  res.render('index');
+    res.render('index');
 })
-app.use("/tweets", tweetsRoutes);
-app.use("/users", usersRoutes);
+
+app.use("/tweets", tweetsRoutes)
+app.use("/users", usersRoutes)
 
 app.listen(PORT, () => {
-  console.log("Example app listening on port " + PORT);
+    console.log("Example app listening on port " + PORT);
 });

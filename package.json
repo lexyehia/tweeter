@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "morgan": "^1.9.0",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "webpack": "^3.8.1"
   }
 }

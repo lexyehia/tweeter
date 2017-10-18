@@ -99,8 +99,7 @@ function renderTweets(tweets) {
     return html;
 }
 
-
- function createTweetElement(data) {
+function createTweetElement(data) {
 
     var tweetCreated = parseHumanDate(data.created_at);
 
@@ -177,4 +176,3 @@ function increaseLikes(e) {
         alert('Stop trying to like your own tweets!')
     }
 }
-
