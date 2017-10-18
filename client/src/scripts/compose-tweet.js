@@ -41,13 +41,19 @@ function postNewTweet(event) {
 
     if (input === null || input === '') {
         alert('Please enter some text first!')
+
     } else if (input.length > 140) {
         alert('Your tweet is way too long!')
+
     } else {
-        $.post( "/tweets/", $(this).serialize(), tweets.loadTweets(updateTweetsList))
+        $.post( "/tweets/", $(this).serialize(), getNewTweets)
         $('.new-tweet').slideUp('fast')
         $(this).find('textarea').val('').trigger('counter-change')
     }
+}
+
+function getNewTweets() {
+    setTimeout(tweets.loadTweets(updateTweetsList), 1000)
 }
 
 function updateTweetsList(data) {

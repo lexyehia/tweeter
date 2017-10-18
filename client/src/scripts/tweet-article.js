@@ -3,9 +3,9 @@ var Cookies = require('../vendor/js-cookie')
 $(document).ready(function() {
     $('#tweets').on('mouseenter', 'article', highlightTweet)
     $('#tweets').on('mouseleave', 'article', dehighlightTweet)
-    $('main').on('new-load', 'article', hideZeroLikesCount)
-    $('main').on('click', '.tweet-like', increaseLikes)
-    $('main').on('likes-change', '.tweet-likes-count', showLikesCount)
+    $('#tweets').on('new-load', 'article', hideZeroLikesCount)
+    $('#tweets').on('click', '.tweet-like', increaseLikes)
+    $('#tweets').on('likes-change', '.tweet-likes-count', showLikesCount)
 })
 
 function highlightTweet() {

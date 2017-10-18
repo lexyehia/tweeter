@@ -45,10 +45,10 @@ module.exports = function(DataHelpers) {
           handle: '@' + user.handle,
           user_id: user._id.toString()
         }
-          
+
         tweet.save((err) => {
           if (err) throw err;
-          res.status(201).send();
+          res.status(200).send();
           return;
         })
       })
@@ -57,7 +57,7 @@ module.exports = function(DataHelpers) {
 
       tweet.save((err) => {
         if (err) throw err;
-        res.status(201).send();
+        res.status(200).send();
       })
     }
 
