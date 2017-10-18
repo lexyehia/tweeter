@@ -5,15 +5,13 @@
  */
 require('webpack-jquery-ui/css');
 require('webpack-jquery-ui');
-require('../styles/layout.scss')
+require('./users-auth')
+require('./session-auth')
+require('./compose-tweet')
+require('./tweets-list')
 var Cookies = require('../vendor/js-cookie')
-require('./users')
-require('./composer-char-counter')
-//import newtweet from '../styles/new-tweet.css'
-//import tweets from '../styles/tweets.css'
 
 $(document).ready(function() {
-    $('.new-tweet').hide();
     loadTweets();
 
     // EVENT LISTENERS
@@ -54,35 +52,7 @@ $(document).ready(function() {
 
     // MISC
 
-    $('.new-tweet').find('form').submit(function(e) {
-        e.preventDefault();
-        var input = $(this).find('textarea').val();
 
-        if (input === null || input === '') {
-            alert('Please enter some text first!');
-        } else if (input.length > 140) {
-            alert('Your tweet is way too long!');
-        } else {
-            $.post( "/tweets/", $(this).serialize(), function() {
-                $.get('/tweets', function(data) {
-                    var html = renderTweets(data);
-                    $('#tweets > article').replaceWith(html);
-                    $('article').trigger('new-load');
-                });
-            });
-            $('.new-tweet').slideUp('fast');
-            $(this).find('textarea').val('').trigger('counter-change');
-        }
-    });
-
-    $('#compose-tweet').click(function() {
-
-        $('.new-tweet').slideToggle('fast', function() {
-            $('#new-text-input').focus();
-        });
-
-        return false;
-    })
 
 });
 
