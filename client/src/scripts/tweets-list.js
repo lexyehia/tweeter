@@ -13,34 +13,35 @@ function addFirstTweetsData(data) {
 }
 
 function renderTweets(tweets) {
-    var str = '';
+    var str = ''
 
-    tweets = tweets.reverse();
+    tweets = tweets.reverse()
 
     for(tweet of tweets) {
-        str += createTweetElement(tweet);
+        str += createTweetElement(tweet)
     }
 
-    var html = $.parseHTML(str);
-    return html;
+    var html = $.parseHTML(str)
+    return html
 }
 
 function createTweetElement(data) {
 
     var tweetCreated = parseHumanDate(data.created_at);
 
-    var str = '<article data-id="' + data._id.toString() + '"><header>';
-    str    += '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>';
-    str    += '<span class="tweet-author-name">' + escape(data.user.name) + '</span>';
-    str    += '<span class="tweet-author-username" data-user-id="' + (data.user.user_id || '') + '">' + escape(data.user.handle) + '</span></span></header>';
-    str    += '<div class="tweet-body">' + escape(data.content.text) + '</div>';
-    str    += '<footer><span class="tweet-age">' + tweetCreated + ' ago</span>';
-    str    += '<span class="tweet-side-icons">';
-    str    += '<i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>';
-    str    += '<i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>';
-    str    += '<i class="fa fa-heart tweet-side-icon tweet-like" aria-hidden="true"></i>';
-    str    += '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+ (data.likes || 0) + '</span>';
-    str    += '</span></footer></article>';
+    var str = '<article data-id="' + data._id.toString() + '"><header>' +
+              '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>' +
+              '<span class="tweet-author-name">' + escape(data.user.name) + '</span>' +
+              '<span class="tweet-author-username" data-user-id="' + (data.user.user_id || '') +
+              '">' + escape(data.user.handle) + '</span></span></header>' +
+              '<div class="tweet-body">' + escape(data.content.text) + '</div>' +
+              '<footer><span class="tweet-age">' + tweetCreated + ' ago</span>' +
+              '<span class="tweet-side-icons">' +
+              '<i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>' +
+              '<i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>' +
+              '<i class="fa fa-heart tweet-side-icon tweet-like" aria-hidden="true"></i>' +
+              '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+
+              (data.likes || 0) + '</span></span></footer></article>'
 
     return str;
 }
