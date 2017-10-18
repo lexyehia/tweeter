@@ -10,20 +10,18 @@ module.exports = function makeDataHelpers() {
 
     // Saves a tweet to `db`
     saveTweet: function(newTweet, callback) {
-      simulateDelay(() => {
         let tweet = new Tweet(newTweet);
         tweet.save((err) => {
           if (err) throw err;
-          callback(null, true);          
+          callback(null, true);
         })
-      });
     },
 
     // Get all tweets in `db`, sorted by newest first
     getTweets: function(callback) {
         Tweet.find({}, (err, tweets) => {
           if (err) throw err;
-          callback(null, tweets);          
+          callback(null, tweets);
       });
     }
 
