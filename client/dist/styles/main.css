@@ -1,0 +1,193 @@
+/*
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ * https://css-tricks.com/international-box-sizing-awareness-day/
+ * Do not modify these two selectors, please
+ */
+/*
+ * Navbar layout stuff
+ */
+nav {
+  box-sizing: border-box;
+  height: 80px;
+  width: 100%;
+  background-color: #00a087;
+  color: #e8fdff;
+  position: fixed;
+  overflow: hidden;
+  z-index: 2;
+  top: 0;
+  padding: 0 2em 0 2em; }
+
+#nav-bar .logo {
+  width: 80px;
+  height: 80px;
+  float: left; }
+
+#nav-bar .header {
+  line-height: 240%;
+  font-size: 200%;
+  float: left; }
+
+.nav-bar-right {
+  display: flex;
+  flex-flow: row;
+  width: auto;
+  justify-content: flex-end;
+  margin: 10px 0;
+  height: 60px;
+  align-items: center;
+  list-style: none; }
+
+.nav-bar-right > li {
+  margin: 20px 10px;
+  border: solid 1px black;
+  padding: 23px 17px;
+  background-color: #E7FDFF;
+  color: #0eb885;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 110%; }
+
+.nav-bar-right > li:hover {
+  border: solid 1px black;
+  background-color: white;
+  color: black; }
+
+section.new-tweet {
+  position: relative;
+  margin: 0 2em;
+  background-color: #eee;
+  border-radius: 5px;
+  border: 1px solid #CFCFCF; }
+
+.new-tweet h2 {
+  border-bottom: 1px solid black;
+  margin: 10px; }
+
+.new-tweet textarea {
+  position: relative;
+  margin: 0 10px 0 10px;
+  width: 364px;
+  padding: 5px; }
+
+#new-tweet-bottom {
+  margin: 5px 10px 5px 10px;
+  display: flex;
+  justify-content: space-between; }
+
+#new-tweet-bottom .counter {
+  font-style: italic;
+  font-size: 85%; }
+
+#new-tweet-bottom .counter.invalid {
+  color: red; }
+
+section#tweets {
+  margin: 2em 2em 0 2em;
+  position: relative; }
+
+section#tweets article {
+  height: 200px;
+  background-color: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 5px !important;
+  margin: 1em 0;
+  overflow: hidden; }
+
+section#tweets article.highlighted {
+  border: 1px solid #000000; }
+
+section#tweets article header {
+  position: relative;
+  height: 75px;
+  width: 100%;
+  background-color: #eee; }
+
+.tweet-author-avatar {
+  position: relative;
+  height: 75px;
+  width: 75px;
+  border-radius: 5px; }
+
+.tweet-author-name {
+  position: relative;
+  font-size: 170%;
+  font-weight: 700; }
+
+.tweet-author-username {
+  position: relative;
+  margin-top: 7px;
+  right: 1;
+  font-size: 90%;
+  color: grey; }
+
+.tweet-body {
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 107%; }
+
+section#tweets article header > span {
+  top: 1;
+  position: absolute;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 309px;
+  height: 75px;
+  display: inline-flex;
+  justify-content: space-between; }
+
+section#tweets article footer {
+  position: absolute;
+  height: 25px;
+  width: 100%;
+  border-top: 1px solid #cfcfcf; }
+
+.tweet-age {
+  position: absolute;
+  left: 10px;
+  top: 3px;
+  font-size: 80%; }
+
+.tweet-side-icons {
+  position: absolute;
+  right: 10px;
+  top: 2px;
+  height: 25px; }
+
+.tweet-side-icon {
+  width: 16px;
+  height: 16px;
+  margin: 0 2px;
+  color: #7BC4B8; }
+
+html {
+  box-sizing: border-box;
+  font-family: 'Roboto Condensed', sans-serif; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+/*
+ * Global layout stuff
+ */
+body {
+  margin: 0;
+  color: #244751;
+  background-color: #eee; }
+
+/*
+ * Additional CSS can be defined below or in other CSS files, as per instructions
+ */
+main {
+  width: 450px;
+  background: #ffffff;
+  position: relative;
+  padding-top: 140px;
+  padding-bottom: 140px;
+  margin: 0 auto; }

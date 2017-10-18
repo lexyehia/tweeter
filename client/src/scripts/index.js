@@ -3,10 +3,13 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-import layout from '../styles/layout.css'
-import nav from '../styles/nav.css'
-import newtweet from '../styles/new-tweet.css'
-import tweets from '../styles/tweets.css'
+require('webpack-jquery-ui');
+require('webpack-jquery-ui/css');
+import main from '../styles/layout.scss'
+require('./users')
+require('./composer-char-counter')
+//import newtweet from '../styles/new-tweet.css'
+//import tweets from '../styles/tweets.css'
 
 
 

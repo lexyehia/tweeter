@@ -1,11 +1,18 @@
 const path = require('path'),
-   webpack = require('webpack')
+   webpack = require('webpack'),
+   ExtractTextPlugin = require("extract-text-webpack-plugin")
+
+const extractSass = new ExtractTextPlugin({
+    filename: "/styles/[name].css",
+    disable : process.env.NODE_ENV === "development"
+})
 
 module.exports = {
     entry: path.resolve(__dirname, './client/src/scripts/index.js'),
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, './client/dist')
+        path: path.resolve(__dirname, './client/dist'),
+        publicPath: 'dist/'
     },
     module: {
         rules: [
@@ -15,16 +22,37 @@ module.exports = {
                     'style-loader',
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.scss$/,
+                use: extractSass.extract({
+                    use: [{
+                            loader: "css-loader"
+                            }, {
+                            loader: "sass-loader"
+                        }],
+                    fallback: "style-loader"
+                })
+            },
+            {
+                test: /\.(jpe?g|png|gif)$/i,
+                loader:"file-loader",
+                query:{
+                    name:'[name].[ext]',
+                    outputPath:'images/'
+                }
             }
         ]
     },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.ProvidePlugin({
-            $: "jquery2",
-            jQuery: "jquery2",
-            "window.jQuery": "jquery2"
-        })
+       new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            "window.$": "jquery"
+        }),
+        extractSass
     ],
     devtool: 'eval'
 }
