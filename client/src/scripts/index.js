@@ -3,20 +3,26 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+import layout from '../styles/layout.css'
+import nav from '../styles/nav.css'
+import newtweet from '../styles/new-tweet.css'
+import tweets from '../styles/tweets.css'
+
+
 
 $(document).ready(function() {
-    $('.new-tweet').hide();    
+    $('.new-tweet').hide();
     loadTweets();
 
     // EVENT LISTENERS
-    
+
     $('#tweets').on('mouseenter', 'article', function() {
         $(this).siblings().removeClass('highlighted');
         $(this).addClass('highlighted');
         $(this).find('.tweet-side-icons').show();
     });
 
-    $('#tweets').on('mouseleave', 'article', function() {   
+    $('#tweets').on('mouseleave', 'article', function() {
         $(this).removeClass('highlighted');
         $(this).find('.tweet-side-icons').hide();
     });
@@ -59,7 +65,7 @@ $(document).ready(function() {
                 $.get('/tweets', function(data) {
                     var html = renderTweets(data);
                     $('#tweets > article').replaceWith(html);
-                    $('article').trigger('new-load');         
+                    $('article').trigger('new-load');
                 });
             });
             $('.new-tweet').slideUp('fast');
@@ -70,19 +76,19 @@ $(document).ready(function() {
     $('#compose-tweet').click(function() {
 
         $('.new-tweet').slideToggle('fast', function() {
-            $('#new-text-input').focus();                    
+            $('#new-text-input').focus();
         });
-        
-        return false; 
+
+        return false;
     })
 
 });
 
-function loadTweets(cb) {
+function loadTweets() {
     $.get('/tweets', function(data) {
         var html = renderTweets(data);
-        $('#tweets').append(html);    
-        $('article').trigger('new-load');        
+        $('#tweets').append(html);
+        $('article').trigger('new-load');
     })
 }
 
@@ -113,7 +119,7 @@ function createTweetElement(data) {
     str    += '<i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>';
     str    += '<i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>';
     str    += '<i class="fa fa-heart tweet-side-icon tweet-like" aria-hidden="true"></i>';
-    str    += '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+ (data.likes || 0) + '</span>';    
+    str    += '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+ (data.likes || 0) + '</span>';
     str    += '</span></footer></article>';
 
     return str;
@@ -124,11 +130,11 @@ function escape(str) {
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
 }
-  
+
 function parseHumanDate(timeCreated) {
     var created = new Date(timeCreated);
     var seconds = Math.floor((Date.now() - created) / 1000);
-    
+
     var interval = Math.floor(seconds / 31536000);
     if (interval > 1) {
         return interval + ' years';
@@ -159,10 +165,10 @@ function parseHumanDate(timeCreated) {
 
 function increaseLikes(e) {
     e.stopPropagation();
-    
+
     var $article = $(this).closest('article')
     var counter = $article.find('.tweet-likes-count')
-    var articleID = $article.data('id'); 
+    var articleID = $article.data('id');
     var userID = $article.find('.tweet-author-username').data('user-id')
 
     if (Cookies.get('user_id') && Cookies.get('user_id') !== userID) {

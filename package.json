@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
-    "local": "./node_modules/.bin/nodemon --watch server -e js server/index.js"
+    "local": "./node_modules/.bin/nodemon --watch server -e js server/index.js",
+    "build": "webpack"
   },
   "author": "Chad Yehia",
   "license": "ISC",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.5",
+    "jquery2": "^2.0.3-a",
     "morgan": "^1.9.0",
     "nodemon": "^1.9.2",
     "style-loader": "^0.19.0",
