@@ -1,3 +1,5 @@
+var Cookies = require('../vendor/js-cookie')
+
 $(document).ready(function() {
     $('#register-user-form').dialog({
         autoOpen: false,

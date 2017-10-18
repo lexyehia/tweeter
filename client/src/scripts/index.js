@@ -3,15 +3,14 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-require('webpack-jquery-ui');
 require('webpack-jquery-ui/css');
-import main from '../styles/layout.scss'
+require('webpack-jquery-ui');
+require('../styles/layout.scss')
+var Cookies = require('../vendor/js-cookie')
 require('./users')
 require('./composer-char-counter')
 //import newtweet from '../styles/new-tweet.css'
 //import tweets from '../styles/tweets.css'
-
-
 
 $(document).ready(function() {
     $('.new-tweet').hide();
