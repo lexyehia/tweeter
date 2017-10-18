@@ -1,9 +1,9 @@
 $(document).ready(function() {
-    loadTweets(addFirstTweetsData)
+    loadTweets()
 })
 
-function loadTweets(cb) {
-    $.get('/tweets', cb)
+function loadTweets() {
+    $.get('/tweets', addFirstTweetsData)
 }
 
 function addFirstTweetsData(data) {
@@ -27,7 +27,7 @@ function renderTweets(tweets) {
 
 function createTweetElement(data) {
 
-    var tweetCreated = parseHumanDate(data.created_at);
+    var tweetCreated = parseHumanDate(data.created_at)
 
     var str = '<article data-id="' + data._id.toString() + '"><header>' +
               '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>' +
@@ -43,7 +43,7 @@ function createTweetElement(data) {
               '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+
               (data.likes || 0) + '</span></span></footer></article>'
 
-    return str;
+    return str
 }
 
 function escape(str) {

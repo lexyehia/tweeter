@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
 // TODO: Remove DataHelpers - useless with mongoose
 const DataHelpers = require("./lib/data-helpers.js")();
-const tweetsRoutes = require("./routes/tweets")(DataHelpers);
+const tweetsRoutes = require("./routes/tweets");
 const usersRoutes = require('./routes/users');
 
 // API Routers

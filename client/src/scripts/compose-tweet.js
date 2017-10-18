@@ -45,18 +45,18 @@ function postNewTweet(event) {
         alert('Your tweet is way too long!')
 
     } else {
-        $.post( "/tweets/", $(this).serialize(), getNewTweets)
+        $.post( "/tweets/", $(this).serialize(), loadFreshTweets)
         $('.new-tweet').slideUp('fast')
         $(this).find('textarea').val('').trigger('counter-change')
     }
 }
 
-function getNewTweets() {
-    setTimeout(tweets.loadTweets(updateTweetsList), 1000)
+function loadFreshTweets() {
+    $.get('/tweets', updateTweetsList)
 }
 
 function updateTweetsList(data) {
     var html = tweets.renderTweets(data)
-    $('#tweets > article').replaceWith(html)
-    $(document).trigger('new-load')
+    $('#tweets').html(html)
+    $('article').trigger('new-load')
 }
