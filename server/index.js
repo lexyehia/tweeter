@@ -1,5 +1,5 @@
 "use strict";
-require('dotenv').config({path: __dirname + '/.env'});
+require('dotenv').config({path: __dirname + '/.env'})
 
 // Basic express setup:
 const PORT          = process.env.PORT || 8080
