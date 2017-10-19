@@ -28,7 +28,7 @@ function createTweetElement(data) {
     var tweetCreated = parseHumanDate(data.created_at)
 
     var str = '<article data-id="' + data._id + '"><header>' +
-              '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>' +
+              '<span>' + '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '">'+
               '<span class="tweet-author-name">' + escape(data.user.name) + '</span>' +
               '<span class="tweet-author-username" data-user-id="' + data.user._id +
               '">' + escape(data.user.handle) + '</span></span></header>' +
