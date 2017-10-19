@@ -18,11 +18,11 @@ usersRoutes.post("/new", function(req, res) {
       small:   '/images/avatar.png'
     }
   });
-  
+
   newUser.save((err, user) => {
     if (err) throw err;
     res.cookie('user_id', newUser._id.toString());
-    res.status(200).end();
+    res.sendStatus(200)
   })
 });
 
@@ -31,14 +31,14 @@ usersRoutes.post("/login", function(req, res) {
     if (err) throw err;
 
     if (!user) {
-      res.status(403).end();
+      res.status(403).send();
       return;
     } else if (user && bcrypt.compareSync(req.body.password, user.password)) {
       res.cookie('user_id', user._id.toString())
-      res.status(200).end();
+      res.sendStatus(200)
       return;
     } else {
-      res.status(403).end()      
+      res.status(403).send()
     }
   })
 });

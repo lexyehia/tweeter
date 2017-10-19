@@ -54,8 +54,7 @@ tweetsRoutes.post("/", function(req, res) {
                     res.status(500).json({ error: err.message })
                     return
                 } else {
-                    res.status(200).send()
-                    return
+                    res.sendStatus(200)
                 }
             })
         })
@@ -68,14 +67,13 @@ tweetsRoutes.post("/", function(req, res) {
                 res.status(500).json({ error: err.message })
                 return
             } else {
-                res.status(200).send()
-                return
+                res.sendStatus(200)
             }
         })
     }
 })
 
-tweetsRoutes.post("/like", function(req, res) {
+tweetsRoutes.put("/like", function(req, res) {
 
     Tweet.findById(req.body.id, (err, tweet) => {
         if (err || tweet === null) {
@@ -89,7 +87,7 @@ tweetsRoutes.post("/like", function(req, res) {
                 res.status(500).json({error: err.message})
                 return
             } else {
-                res.status(200).end();
+                res.sendStatus(201)
             }
         })
     })

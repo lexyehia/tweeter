@@ -35,7 +35,7 @@ function createTweetElement(data) {
               '<span class="tweet-author-username" data-user-id="' + (data.user.user_id || '') +
               '">' + escape(data.user.handle) + '</span></span></header>' +
               '<div class="tweet-body">' + escape(data.content.text) + '</div>' +
-              '<footer><span class="tweet-age">' + tweetCreated + ' ago</span>' +
+              '<footer><span class="tweet-age">' + tweetCreated + '</span>' +
               '<span class="tweet-side-icons">' +
               '<i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>' +
               '<i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>' +
@@ -47,44 +47,42 @@ function createTweetElement(data) {
 }
 
 function escape(str) {
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
+    var div = document.createElement('div')
+    div.appendChild(document.createTextNode(str))
+    return div.innerHTML
 }
 
 function parseHumanDate(timeCreated) {
-    var created = new Date(timeCreated);
-    var seconds = Math.floor((Date.now() - created) / 1000);
+    const created = new Date(timeCreated)
+    const seconds = Math.floor((Date.now() - created) / 1000)
 
-    var interval = Math.floor(seconds / 31536000);
-    if (interval > 1) {
-        return interval + ' years';
+    let secondsArray = [
+        [31536000, ' year'],
+        [2592000, ' month'],
+        [86400, ' day'],
+        [3600, ' hour'],
+        [60, ' minute'],
+        [1, ' second']
+    ]
+
+    function parseHumanDateRecursive(seconds, secondsArray) {
+        if (seconds === 0) return 'Just now'
+
+        let dateWord = ''
+        const head = secondsArray.shift()
+        const interval = Math.floor(seconds / head[0])
+
+        if (interval >= 1) {
+            interval === 1 ? dateWord = head[1] : dateWord = head[1] + 's'
+            return interval + dateWord + ' ago'
+        } else {
+            return parseHumanDateRecursive(seconds, secondsArray)
+        }
     }
 
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-        return interval + ' months';
-    }
-
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-        return interval + ' days';
-    }
-
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-        return interval + ' hours';
-    }
-
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-        return interval + ' minutes';
-    }
-
-    return Math.floor(seconds) + ' seconds';
+    return parseHumanDateRecursive(seconds, secondsArray)
 }
 
 module.exports = {
-    loadTweets,
     renderTweets
 }
