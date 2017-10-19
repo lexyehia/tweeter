@@ -9,47 +9,47 @@ nav#nav-bar {
     background-color: #00a087;
     color:            #e8fdff;
     position:         fixed;
-    overflow: hidden;
-    z-index: 2;
+    overflow:         hidden;
+    z-index:          2;
     top:              0;
     padding:          0 2em 0 2em;
 
     .logo {
-        width: 80px;
+        width:  80px;
         height: 80px;
-        float: left;
+        float:  left;
     }
 
     .header {
         line-height: 240%;
-        font-size: 200%;
-        float: left;
+        font-size:   200%;
+        float:       left;
     }
 
     .nav-bar-right {
-        display: flex;
-        flex-flow: row;
-        width: auto;
+        display:         flex;
+        flex-flow:       row;
+        width:           auto;
         justify-content: flex-end;
-        margin: 10px 0;
-        height: 60px;
-        align-items: center;
-        list-style: none;
+        margin:          10px 0;
+        height:          60px;
+        align-items:     center;
+        list-style:      none;
 
         > li {
-            margin: 20px 10px;
-            border: solid 1px black;
-            padding: 23px 17px;
+            margin:           20px 10px;
+            border:           solid 1px black;
+            padding:          23px 17px;
             background-color: #E7FDFF;
-            color: rgb(14, 184, 133);
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 110%;
+            color:            rgb(14, 184, 133);
+            border-radius:    5px;
+            cursor:           pointer;
+            font-size:        110%;
 
             &:hover {
-                border: solid 1px black;
+                border:           solid 1px black;
                 background-color: white;
-                color: black;
+                color:            black;
             }
         }
     }

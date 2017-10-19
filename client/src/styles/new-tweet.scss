@@ -3,32 +3,32 @@
  */
 
 section.new-tweet {
-    position: relative;
-    margin: 0 2em;
+    position:         relative;
+    margin:           0 2em;
     background-color: #eee;
-    border-radius: 5px;
-    border: 1px solid #CFCFCF;
+    border-radius:    5px;
+    border:           1px solid #CFCFCF;
 
     h2 {
         border-bottom: 1px solid black;
-        margin: 10px;
+        margin:        10px;
     }
 
     textarea {
         position: relative;
-        margin: 0 10px 0 10px;
-        width: 364px;
-        padding: 5px;
+        margin:   0 10px 0 10px;
+        width:    364px;
+        padding:  5px;
     }
 
     #new-tweet-bottom {
-        margin: 5px 10px 5px 10px;
-        display: flex;
+        margin:          5px 10px 5px 10px;
+        display:         flex;
         justify-content: space-between;
 
         .counter {
             font-style: italic;
-            font-size: 85%;
+            font-size:  85%;
 
             &.invalid {
                 color: red;
