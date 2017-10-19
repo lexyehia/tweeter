@@ -39,6 +39,7 @@ userSchema.statics.generateRandomUser = function() {
     const firstName = chance.first({gender: gender})
     const lastName  = chance.last()
     const name  = firstName + " " + lastName
+    let handle = ''
 
     if (Math.random() > 0.5) {
         let prefix = chance.prefix({gender: gender})

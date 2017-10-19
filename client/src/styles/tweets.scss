@@ -5,15 +5,19 @@
 section#tweets {
     margin: 2em 2em 0 2em;
     position: relative;
-}
 
-section#tweets article {
-    height: 200px;
-    background-color: #ffffff;
-    border: 1px solid #cfcfcf;
-    border-radius: 5px !important;
-    margin: 1em 0;
-    overflow: hidden;
+    article {
+        height: 200px;
+        background-color: #ffffff;
+        border: 1px solid #cfcfcf;
+        border-radius: 5px !important;
+        margin: 1em 0;
+        overflow: hidden;
+    }
+
+    article.highlighted {
+        border: 1px solid #000000;
+    }
 }
 
 section#tweets article.highlighted {

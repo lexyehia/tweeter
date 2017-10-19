@@ -15,8 +15,6 @@ function addFirstTweetsData(data) {
 function renderTweets(tweets) {
     var str = ''
 
-    tweets = tweets.reverse()
-
     for(tweet of tweets) {
         str += createTweetElement(tweet)
     }

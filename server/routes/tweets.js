@@ -7,7 +7,7 @@ const Tweet         = require('../models/tweet')
 const User          = require('../models/user')
 
 tweetsRoutes.get("/", function(req, res) {
-    Tweet.find({}, (err, tweets) => {
+    Tweet.find({}).sort('-created_at').populate('user').exec((err, tweets) => {
         if (err) {
             res.status(500).json({ error: err.message })
             return
@@ -38,17 +38,7 @@ tweetsRoutes.post("/", function(req, res) {
                 return
             }
 
-            // TODO: Push this to the model level
-            tweet.user = {
-                name: user.name,
-                avatars: {
-                    small: user.avatars.small,
-                    regular: user.avatars.regular,
-                    large: user.avatars.large
-                },
-                handle: '@' + user.handle,
-                user_id: user._id.toString()
-            }
+            tweet.user = user._id
 
             tweet.save((err) => {
                 if (err) {
@@ -59,11 +49,7 @@ tweetsRoutes.post("/", function(req, res) {
                 }
             })
         })
-
     } else {
-        // TODO: Call User model function instead
-        tweet.user = userHelper.generateRandomUser();
-
         tweet.save((err) => {
             if (err) {
                 res.status(500).json({ error: err.message })

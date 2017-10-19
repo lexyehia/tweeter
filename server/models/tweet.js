@@ -3,10 +3,10 @@ const mongoose = require("mongoose"),
       Schema   = mongoose.Schema;
 
 let tweetSchema = new Schema({
-    user: [{
+    user: {
           type: Schema.Types.ObjectId,
-          ref: 'Story'
-    }],
+          ref: 'User'
+    },
     content: {
         text: String
     },
@@ -16,12 +16,16 @@ let tweetSchema = new Schema({
 
 tweetSchema.pre('save', function(next) {
     if(this.isNew && !this.user) {
+        let newTweet = this
         let _user = User.generateRandomUser()
         _user.save(function() {
-            this.user = _user._id
+            newTweet.user = _user._id
             next()
         })
+    } else {
+        next()
     }
+
 })
 
 module.exports = mongoose.model('Tweet', tweetSchema);
