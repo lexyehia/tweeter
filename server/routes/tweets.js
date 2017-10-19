@@ -54,7 +54,7 @@ tweetsRoutes.post("/", function(req, res) {
                     res.status(500).json({ error: err.message })
                     return
                 } else {
-                    res.sendStatus(200)
+                    res.sendStatus(201)
                 }
             })
         })
@@ -67,7 +67,7 @@ tweetsRoutes.post("/", function(req, res) {
                 res.status(500).json({ error: err.message })
                 return
             } else {
-                res.sendStatus(200)
+                res.sendStatus(201)
             }
         })
     }

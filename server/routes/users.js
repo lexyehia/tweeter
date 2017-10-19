@@ -11,13 +11,8 @@ usersRoutes.post("/new", function(req, res) {
   let newUser = new User({
     handle:   req.body.handle,
     name:     req.body.name,
-    password: bcrypt.hashSync(req.body.password, 10),
-    avatars:  {
-      regular: '/images/avatar.png',
-      large:   '/images/avatar.png',
-      small:   '/images/avatar.png'
-    }
-  });
+    password: req.body.password
+  })
 
   newUser.save((err, user) => {
     if (err) throw err;
