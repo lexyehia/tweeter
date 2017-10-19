@@ -1,41 +1,38 @@
-"use strict";
+"use strict"
 
-const express      = require('express');
-const usersRoutes  = express.Router();
-const User         = require('../models/user');
-const bcrypt       = require('bcrypt');
+const express      = require('express')
+const usersRoutes  = express.Router()
+const User         = require('../models/user')
+const bcrypt       = require('bcrypt')
 
+usersRoutes.post("/new", (req, res) => {
+    let user = new User({
+        handle:   req.body.handle,
+        name:     req.body.name,
+        password: req.body.password
+    })
 
+    user.save((err) => {
+        if (err) {
+            res.status(403).json({error: err.message})
+            return
+        }
 
-usersRoutes.post("/new", function(req, res) {
-  let newUser = new User({
-    handle:   req.body.handle,
-    name:     req.body.name,
-    password: req.body.password
-  })
-
-  newUser.save((err, user) => {
-    if (err) throw err;
-    res.cookie('user_id', newUser._id.toString());
-    res.sendStatus(200)
-  })
-});
+        res.cookie('user_id', user._id.toString())
+        res.sendStatus(201)
+    })
+})
 
 usersRoutes.post("/login", function(req, res) {
-  User.findOne({handle: req.body.handle}, function (err, user) {
-    if (err) throw err;
+    User.comparePasswords(req.body.handle, req.body.password, (user) => {
+        if (user) {
+            res.cookie('user_id', user._id.toString())
+            res.sendStatus(200)
+            return
+        } else {
+            res.status(403).send()
+        }
+    })
+})
 
-    if (!user) {
-      res.status(403).send();
-      return;
-    } else if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      res.cookie('user_id', user._id.toString())
-      res.sendStatus(200)
-      return;
-    } else {
-      res.status(403).send()
-    }
-  })
-});
-
-module.exports = usersRoutes;
+module.exports = usersRoutes

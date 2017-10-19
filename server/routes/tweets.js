@@ -38,6 +38,7 @@ tweetsRoutes.post("/", function(req, res) {
                 return
             }
 
+            // TODO: Push this to the model level
             tweet.user = {
                 name: user.name,
                 avatars: {
@@ -60,6 +61,7 @@ tweetsRoutes.post("/", function(req, res) {
         })
 
     } else {
+        // TODO: Call User model function instead
         tweet.user = userHelper.generateRandomUser();
 
         tweet.save((err) => {

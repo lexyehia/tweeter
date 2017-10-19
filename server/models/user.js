@@ -1,11 +1,10 @@
-const mongoose = require("mongoose"),
-const Chance = require("chance");
-const chance = new Chance();
-const md5 = require('md5');
-const bcrypt = require('bcrypt')
-Schema   = mongoose.Schema;
+const mongoose = require('mongoose')
+const Chance   = require('chance')
+const chance   = new Chance()
+const md5      = require('md5')
+const bcrypt   = require('bcrypt')
 
-let userSchema = new Schema({
+let userSchema = new mongoose.Schema({
     name: String,
     avatars: {
         small: String,
@@ -15,11 +14,8 @@ let userSchema = new Schema({
     handle: {
         type: String,
         validate: {
-            validator: function(value, respond) {
-                this.where({handle: value}).limit(1).count((err, count) => {
-                    count === 0 ? respond(true) : respond(false)
-                })
-            }
+            isAsync: true,
+            validator: validateUniqueHandle
         }
     },
     password: String,
@@ -27,10 +23,11 @@ let userSchema = new Schema({
         type: Date,
         default: Date.now()
     }
-}, {collection: 'users'});
+}, {collection: 'users'})
 
-userSchema.pre('save', next => {
+userSchema.pre('save', function(next) {
     if (this.isNew) {
+        this.handle = '@' + this.handle
         this.generateAvatars()
         this.password = bcrypt.hashSync(this.password, 10)
     }
@@ -43,7 +40,6 @@ userSchema.statics.generateRandomUser = function() {
     const lastName  = chance.last()
     const name  = firstName + " " + lastName
 
-    let handle = "@"
     if (Math.random() > 0.5) {
         let prefix = chance.prefix({gender: gender})
         prefix  = prefix.replace(".", "")
@@ -60,9 +56,11 @@ userSchema.statics.generateRandomUser = function() {
     return new this({ name, handle, password: '1' })
 }
 
-userSchema.statics.comparePasswords = function(email, password, cb) {
-    this.findOne({email}, (err, user) => {
-        if (!err && user && bcrypt.compareSync(password, user.password)) {
+userSchema.statics.comparePasswords = function(handle, password, cb) {
+    User.findOne({handle: `@${handle}`}, (err, user) => {
+        if (err) throw err
+
+        if (user && bcrypt.compareSync(password, user.password)) {
             cb(user)
         } else {
             cb(false)
@@ -80,4 +78,10 @@ userSchema.methods.generateAvatars = function() {
     }
 }
 
-module.exports = mongoose.model('User', userSchema);
+function validateUniqueHandle(value, respond) {
+    User.find().where({handle: value}).limit(1).count((err, count) => {
+        count === 0 ? respond(true) : respond(false)
+    })
+}
+
+const User = module.exports = mongoose.model('User', userSchema)

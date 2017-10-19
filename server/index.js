@@ -21,6 +21,7 @@ app.use(cookieParser())
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
+mongoose.set('debug', true);
 
 // TODO: Remove DataHelpers - useless with mongoose
 const tweetsRoutes = require("./routes/tweets");
