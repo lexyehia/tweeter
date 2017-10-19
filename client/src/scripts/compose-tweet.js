@@ -17,7 +17,7 @@ $(document).ready(function() {
  * @return {void}
  */
 function updateCharCounter() {
-    var charsInputted = $(this).val().length
+    var charsInputted = $(this).val().trim().length
     var counter = $(this).closest('form').find('.counter')
     counter.text(140 - charsInputted)
 
@@ -36,7 +36,9 @@ function slideNewTweetBox(event) {
 
 function postNewTweet(event) {
     event.preventDefault()
-    var input = $(this).find('textarea').val()
+    var textarea = $(this).find('textarea')
+    textarea.val(textarea.val().trim())
+    var input = textarea.val()
 
     if (input === null || input === '') {
         alert('Please enter some text first!')
@@ -47,7 +49,7 @@ function postNewTweet(event) {
     } else {
         $.post( "/tweets/", $(this).serialize(), loadFreshTweets)
         $('.new-tweet').slideUp('fast')
-        $(this).find('textarea').val('').trigger('counter-change')
+        textarea.val('').trigger('counter-change')
     }
 }
 

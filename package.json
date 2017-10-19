@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
     "local": "./node_modules/.bin/nodemon --watch server -e js server/index.js",
-    "build": "webpack",
+    "build": "webpack --progress",
     "postinstall": "webpack -p --config ./webpack.config.js --progress"
   },
   "author": "Chad Yehia",

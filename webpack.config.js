@@ -2,10 +2,10 @@ const path = require('path'),
    webpack = require('webpack'),
    ExtractTextPlugin = require("extract-text-webpack-plugin")
 
-const extractSass = new ExtractTextPlugin({
-    filename: "/[name].css",
-    disable : process.env.NODE_ENV === "development"
-})
+// const extractSass = new ExtractTextPlugin({
+//     filename: "/[name].css",
+//     //disable : process.env.NODE_ENV === "development"
+// })
 
 module.exports = {
     entry: path.resolve(__dirname, './client/src/scripts/index.js'),
@@ -25,14 +25,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: extractSass.extract({
-                    use: [{
-                            loader: "css-loader"
-                            }, {
-                            loader: "sass-loader"
-                        }],
-                    fallback: "style-loader"
-                })
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.(jpe?g|png|gif)$/i,
@@ -45,14 +38,13 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.NoEmitOnErrorsPlugin(),
+       new webpack.NoEmitOnErrorsPlugin(),
        new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery",
             "window.$": "jquery"
         }),
-        extractSass
     ],
     devtool: 'eval'
 }

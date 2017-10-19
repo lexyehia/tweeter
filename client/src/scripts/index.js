@@ -5,6 +5,8 @@
  */
 
 require('webpack-jquery-ui/css')
+require('../styles/layout.scss')
+
 require('webpack-jquery-ui')
 require('./users-auth')
 require('./compose-tweet')
