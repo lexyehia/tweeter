@@ -12,26 +12,22 @@ const path          = require('path')
 const cookieParser  = require('cookie-parser')
 
 // Set middle-ware
-app.use(morgan('dev'));
-app.set('views', path.join(__dirname, 'views'));
+app.use(morgan('dev'))
+app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../client/dist/')));
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, '../client/dist/')))
 app.use(cookieParser())
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
-mongoose.set('debug', true);
-
-// TODO: Remove DataHelpers - useless with mongoose
-const tweetsRoutes = require("./routes/tweets");
-const usersRoutes = require('./routes/users');
+mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
+mongoose.set('debug', true)
 
 // API Routers
-app.use("/tweets", tweetsRoutes)
-app.use("/users", usersRoutes)
+app.use("/tweets", require("./routes/tweets"))
+app.use("/users", require('./routes/users'))
 
 // Start server
 app.listen(PORT, () => {
-    console.log("Example app listening on port " + PORT);
-});
+    console.log("Example app listening on port " + PORT)
+})

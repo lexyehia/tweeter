@@ -40,7 +40,7 @@ function postNewTweet(event) {
     textarea.val(textarea.val().trim())
     var input = textarea.val()
 
-    if (input === null || input === '') {
+    if (!input) {
         alert('Please enter some text first!')
 
     } else if (input.length > 140) {

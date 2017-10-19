@@ -27,10 +27,10 @@ function createTweetElement(data) {
 
     var tweetCreated = parseHumanDate(data.created_at)
 
-    var str = '<article data-id="' + data._id.toString() + '"><header>' +
+    var str = '<article data-id="' + data._id + '"><header>' +
               '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '"><span>' +
               '<span class="tweet-author-name">' + escape(data.user.name) + '</span>' +
-              '<span class="tweet-author-username" data-user-id="' + (data.user.user_id || '') +
+              '<span class="tweet-author-username" data-user-id="' + data.user._id +
               '">' + escape(data.user.handle) + '</span></span></header>' +
               '<div class="tweet-body">' + escape(data.content.text) + '</div>' +
               '<footer><span class="tweet-age">' + tweetCreated + '</span>' +
@@ -39,7 +39,7 @@ function createTweetElement(data) {
               '<i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>' +
               '<i class="fa fa-heart tweet-side-icon tweet-like" aria-hidden="true"></i>' +
               '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+
-              (data.likes || 0) + '</span></span></footer></article>'
+              data.likes + '</span></span></footer></article>'
 
     return str
 }

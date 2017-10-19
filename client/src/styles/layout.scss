@@ -10,32 +10,28 @@
 @import 'tweets';
 
 html {
-  box-sizing: border-box;
-  font-family: 'Roboto Condensed', sans-serif;
+    box-sizing: border-box;
+    font-family: 'Roboto Condensed', sans-serif;
+
+    body {
+        margin: 0;
+        color: #244751;
+        background-color: #eee;
+
+        main {
+            width: 450px;
+            background: #ffffff;
+            position: relative;
+            padding-top: 140px;
+            padding-bottom: 140px;
+            margin: 0 auto;
+        }
+    }
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-/*
- * Global layout stuff
- */
 
-body {
-  margin: 0;
-  color: #244751;
-  background-color: #eee;
-}
 
-/*
- * Additional CSS can be defined below or in other CSS files, as per instructions
- */
-
-main {
-  width: 450px;
-  background: #ffffff;
-  position: relative;
-  padding-top: 140px;
-  padding-bottom: 140px;
-  margin: 0 auto;
-}

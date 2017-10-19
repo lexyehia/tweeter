@@ -3,36 +3,36 @@
  */
 
 section.new-tweet {
-   position: relative;
-   margin: 0 2em;
-   background-color: #eee;
-   border-radius: 5px;
-   border: 1px solid #CFCFCF;
-}
-
-.new-tweet h2 {
-    border-bottom: 1px solid black;
-    margin: 10px;
-}
-
-.new-tweet textarea {
     position: relative;
-    margin: 0 10px 0 10px;
-    width: 364px;
-    padding: 5px;
-}
+    margin: 0 2em;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
 
-#new-tweet-bottom {
-    margin: 5px 10px 5px 10px;
-    display: flex;
-    justify-content: space-between;
-}
+    h2 {
+        border-bottom: 1px solid black;
+        margin: 10px;
+    }
 
-#new-tweet-bottom .counter {
-    font-style: italic;
-    font-size: 85%;
-}
+    textarea {
+        position: relative;
+        margin: 0 10px 0 10px;
+        width: 364px;
+        padding: 5px;
+    }
 
-#new-tweet-bottom .counter.invalid {
-    color: red;
+    #new-tweet-bottom {
+        margin: 5px 10px 5px 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .counter {
+            font-style: italic;
+            font-size: 85%;
+
+            &.invalid {
+                color: red;
+            }
+        }
+    }
 }
