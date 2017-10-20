@@ -1,23 +1,10 @@
 var Cookies = require('../vendor/js-cookie')
 
 $(document).ready(function() {
-    // $('#tweets').on('mouseenter', 'article', highlightTweet)
-    // $('#tweets').on('mouseleave', 'article', dehighlightTweet)
-    $('#tweets').on('new-load', 'article', hideZeroLikesCount)
+    // $('#tweets').on('new-load', 'article', hideZeroLikesCount)
     $('#tweets').on('click', '.tweet-like', increaseLikes)
-    $('#tweets').on('likes-change', '.tweet-likes-count', showLikesCount)
+    $('#tweets').on('likes-change', '.tweet-likes-count', toggleLikesCount)
 })
-
-function highlightTweet() {
-    $(this).siblings().removeClass('highlighted')
-    $(this).addClass('highlighted')
-    $(this).find('.tweet-side-icons').show()
-}
-
-function dehighlightTweet() {
-    $(this).removeClass('highlighted')
-    $(this).find('.tweet-side-icons').hide()
-}
 
 function increaseLikes(event) {
     event.stopPropagation()
@@ -44,18 +31,7 @@ function increaseLikesCounter() {
     $(this).trigger('likes-change')
 }
 
-function hideZeroLikesCount() {
-    var $counter = $(this).find('.tweet-likes-count')
-    if(+$counter.text() === 0) {
-        $counter.hide()
-    } else {
-        $counter.show()
-    }
-
-    //$(this).find('.tweet-side-icons').hide()
-}
-
-function showLikesCount(event) {
+function toggleLikesCount(event) {
     event.stopPropagation()
 
     if(+$(this).text() === 0) {

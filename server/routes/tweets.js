@@ -44,7 +44,10 @@ tweetsRoutes.post("/", function(req, res) {
                     res.status(500).json({ error: err.message })
                     return
                 } else {
-                    res.sendStatus(201)
+                    tweet.populate('user', (err, tweet) => {
+                        if (err) throw err
+                        res.json(tweet)
+                    })
                 }
             })
         })
@@ -54,7 +57,10 @@ tweetsRoutes.post("/", function(req, res) {
                 res.status(500).json({ error: err.message })
                 return
             } else {
-                res.sendStatus(201)
+                tweet.populate('user', (err, tweet) => {
+                    if (err) throw err
+                    res.json(tweet)
+                })
             }
         })
     }
@@ -74,7 +80,10 @@ tweetsRoutes.put("/like", function(req, res) {
                 res.status(500).json({error: err.message})
                 return
             } else {
-                res.sendStatus(201)
+                tweet.populate((err, tweet) => {
+                    if (err) throw err
+                    res.json(tweet)
+                })
             }
         })
     })

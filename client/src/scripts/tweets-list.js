@@ -3,45 +3,49 @@ $(document).ready(function() {
 })
 
 function loadTweets() {
-    $.get('/tweets', addFirstTweetsData)
+    $.get('/tweets', addAllTweets)
+    setTimeout(loadTweets, 120000)
 }
 
-function addFirstTweetsData(data) {
+function addAllTweets(data) {
     var html = renderTweets(data)
-    $('#tweets').append(html)
-    $('article').trigger('new-load')
+    $('#tweets').html(html)
+    $('.tweet-likes-count').trigger('likes-change')
 }
 
-function renderTweets(tweets) {
-    var str = ''
+function renderTweets(data) {
+    let str = ''
 
-    for(tweet of tweets) {
-        str += createTweetElement(tweet)
+    if (Array.isArray(data)) {
+        for(obj of data) {
+            str += createTweetElement(obj)
+        }
+    } else {
+        str = createTweetElement(data)
     }
 
-    var html = $.parseHTML(str)
-    return html
+    return $.parseHTML(str)
 }
 
 function createTweetElement(data) {
 
-    var tweetCreated = parseHumanDate(data.created_at)
-
-    var str = '<article data-id="' + data._id + '"><header>' +
-              '<span>' + '<img class="tweet-author-avatar" src="' + data.user.avatars.regular + '">'+
-              '<span class="tweet-author-name">' + escape(data.user.name) + '</span>' +
-              '<span class="tweet-author-username" data-user-id="' + data.user._id +
-              '">' + escape(data.user.handle) + '</span></span></header>' +
-              '<div class="tweet-body">' + escape(data.content.text) + '</div>' +
-              '<footer><span class="tweet-age">' + tweetCreated + '</span>' +
-              '<span class="tweet-side-icons">' +
-              '<i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>' +
-              '<i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>' +
-              '<i class="fa fa-heart tweet-side-icon tweet-like" aria-hidden="true"></i>' +
-              '<span class="tweet-likes-count tweet-side-icon" aria-hidden="true">'+
-              data.likes + '</span></span></footer></article>'
-
-    return str
+    return   `<article data-id="${data._id}">
+              <header>
+              <img class="tweet-author-avatar" src="${data.user.avatars.regular}">
+              <span class="tweet-author-name">${escape(data.user.name)}</span>
+              <span class="tweet-author-username" data-user-id="${data.user._id}">${escape(data.user.handle)}</span>
+              </header>
+              <div class="tweet-body">${escape(data.content.text)}</div>
+              <footer>
+              <span class="tweet-age">${parseHumanDate(data.created_at)}</span>
+              <span class="tweet-side-icons">
+              <i class="fa fa-flag tweet-side-icon" aria-hidden="true"></i>
+              <i class="fa fa-retweet tweet-side-icon" aria-hidden="true"></i>
+              <i class="fa fa-heart tweet-side-icon tweet-like" aria-hidden="true"></i>
+              <span class="tweet-likes-count tweet-side-icon" aria-hidden="true">${data.likes}</span>
+              </span>
+              </footer>
+              </article>`
 }
 
 function escape(str) {

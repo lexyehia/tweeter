@@ -2,7 +2,7 @@ var tweets = require('./tweets-list')
 
 /** DOCUMENT READY AREA */
 $(document).ready(function() {
-    $('.new-tweet').hide()
+   // $('.new-tweet').hide()
     $('.new-tweet').find('textarea').on('keyup counter-change', updateCharCounter)
     $('.new-tweet').find('form').submit(postNewTweet)
     $('#compose-tweet').click(slideNewTweetBox)
@@ -47,18 +47,14 @@ function postNewTweet(event) {
         alert('Your tweet is way too long!')
 
     } else {
-        $.post( "/tweets/", $(this).serialize(), loadFreshTweets)
+        $.post( "/tweets/", $(this).serialize(), addNewTweet)
         $('.new-tweet').slideUp('fast')
         textarea.val('').trigger('counter-change')
     }
 }
 
-function loadFreshTweets() {
-    $.get('/tweets', updateTweetsList)
-}
-
-function updateTweetsList(data) {
-    var html = tweets.renderTweets(data)
-    $('#tweets').html(html)
-    $('article').trigger('new-load')
+function addNewTweet(tweet) {
+    const $newTweetNode = tweets.renderTweets(tweet)
+    $('#tweets').prepend($newTweetNode)
+    $newTweetNode.find('.tweet-likes-count').trigger('likes-change')
 }
