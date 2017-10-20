@@ -2,7 +2,6 @@ var tweets = require('./tweets-list')
 
 /** DOCUMENT READY AREA */
 $(document).ready(function() {
-   // $('.new-tweet').hide()
     $('.new-tweet').find('textarea').on('keyup counter-change', updateCharCounter)
     $('.new-tweet').find('form').submit(postNewTweet)
     $('#compose-tweet').click(slideNewTweetBox)
