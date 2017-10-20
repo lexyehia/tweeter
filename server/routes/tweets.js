@@ -6,6 +6,7 @@ const Tweet         = require('../models/tweet')
 const User          = require('../models/user')
 
 tweetsRoutes.get("/", function(req, res) {
+    // TODO: Remove password from user populated 
     Tweet.find({}).sort('-created_at').populate('user').exec((err, tweets) => {
         if (err) {
             res.status(500).json({ error: err.message })
@@ -44,6 +45,7 @@ tweetsRoutes.post("/", function(req, res) {
                     res.status(500).json({ error: err.message })
                     return
                 } else {
+                    // TODO: Limit the fields of the User to remove password from json
                     tweet.populate('user', (err, tweet) => {
                         if (err) throw err
                         res.json(tweet)
