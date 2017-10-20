@@ -28,6 +28,10 @@ section#tweets {
                     opacity: 1;
                 }
             }
+
+            .tweet-side-icons {
+                display: block;
+            }
         }
 
         header {
@@ -100,13 +104,14 @@ section#tweets {
                 right:    10px;
                 top:      2px;
                 height:   25px;
-            }
+                display: none;
 
-            .tweet-side-icon {
-                width:  16px;
-                height: 16px;
-                margin: 0 2px;
-                color:  #7BC4B8;
+                .tweet-side-icon {
+                    width:  16px;
+                    height: 16px;
+                    margin: 0 2px;
+                    color:  #7BC4B8;
+                }
             }
         }
     }

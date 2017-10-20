@@ -1,8 +1,8 @@
 var Cookies = require('../vendor/js-cookie')
 
 $(document).ready(function() {
-    $('#tweets').on('mouseenter', 'article', highlightTweet)
-    $('#tweets').on('mouseleave', 'article', dehighlightTweet)
+    // $('#tweets').on('mouseenter', 'article', highlightTweet)
+    // $('#tweets').on('mouseleave', 'article', dehighlightTweet)
     $('#tweets').on('new-load', 'article', hideZeroLikesCount)
     $('#tweets').on('click', '.tweet-like', increaseLikes)
     $('#tweets').on('likes-change', '.tweet-likes-count', showLikesCount)
@@ -52,7 +52,7 @@ function hideZeroLikesCount() {
         $counter.show()
     }
 
-    $(this).find('.tweet-side-icons').hide()
+    //$(this).find('.tweet-side-icons').hide()
 }
 
 function showLikesCount(event) {
