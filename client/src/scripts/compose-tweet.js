@@ -13,6 +13,8 @@ export function updateCharCounter() {
 
     if(counter.text() < 0) {
         counter.addClass('invalid')
+    } else {
+        counter.removeClass('invalid')        
     }
 }
 

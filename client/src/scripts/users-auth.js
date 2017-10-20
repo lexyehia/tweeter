@@ -26,11 +26,13 @@ export function registerUser(e) {
 export function openRegisterDialog(e) {
     e.stopPropagation();
     $('#register-user-form').dialog('open');
+    $('#login-user-form').dialog('close');    
 }
 
 export function openLoginDialog(e) {
     e.stopPropagation();
     $('#login-user-form').dialog('open');
+    $('#register-user-form').dialog('close');    
 }
 
 export function loginUser(e) {
@@ -53,6 +55,7 @@ export function logoutUser(e) {
 
 export const registerUserForm = {
     autoOpen: false,
+    width: 350,
     buttons: [
         {
             text: "Register",
@@ -68,7 +71,6 @@ export const registerUserForm = {
             }
         }
     ],
-    modal: true,
 }
 
 export const loginUserForm = {
@@ -88,5 +90,4 @@ export const loginUserForm = {
             }
         }
     ],
-    modal: true
 }

@@ -55,24 +55,40 @@
       </section>
 
       <!-- User Registration Dialog -->
-      <form id="register-user-form">
-        <label for="name">Name</label>
-        <input type="text" id="register-user-name" name="name">
-        <label for="handle">Handle</label>
-        <input type="text" id="register-user-handle" name="handle">
-        <label for="password">Password</label>
-        <input type="password" id="register-user-password" name="password">
-        <label for="vpassword">Verify Password</label>
-        <input type="password" id="register-user-vpassword" name="vpassword">
+      <form id="register-user-form" class="dialog-form">
+        <table>
+        <tr>
+          <td><label for="name">Name</label></td>
+          <td><input type="text" id="register-user-name" name="name"></td>
+        </tr>
+        <tr>            
+            <td><label for="handle">Handle</label></td>
+            <td><input type="text" id="register-user-handle" name="handle"></td>
+        </tr>
+        <tr>
+            <td><label for="password">Password</label></td>
+            <td><input type="password" id="register-user-password" name="password"></td>
+        </tr>  
+        <tr>          
+            <td><label for="vpassword">Verify Password</label></td>
+            <td><input type="password" id="register-user-vpassword" name="vpassword"></td>
+        </tr>
+        </table>            
         <!-- <button type="submit">Register</button> -->
       </form>
 
       <!-- User Login Dialog -->
-      <form id="login-user-form">
-        <label for="handle">Handle</label>
-        <input type="text" id="login-user-handle" name="handle">
-        <label for="password">Password</label>
-        <input type="password" id="login-user-password" name="password">
+      <form id="login-user-form" class="dialog-form">
+        <table>
+        <tr>              
+            <td><label for="handle">Handle</label></td>
+            <td><input type="text" id="login-user-handle" name="handle"></td>
+        </tr>     
+        <tr>                    
+            <td><label for="password">Password</label></td>
+            <td><input type="password" id="login-user-password" name="password"></td>
+        </tr>
+      </table>      
       </form>
 
     </main>
