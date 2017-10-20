@@ -1,6 +1,6 @@
 const path = require('path'),
    webpack = require('webpack'),
-   ExtractTextPlugin = require("extract-text-webpack-plugin")
+   UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 // const extractSass = new ExtractTextPlugin({
 //     filename: "/[name].css",
@@ -45,6 +45,7 @@ module.exports = {
             "window.jQuery": "jquery",
             "window.$": "jquery"
         }),
+       new webpack.optimize.UglifyJsPlugin()
     ],
     devtool: 'eval'
 }

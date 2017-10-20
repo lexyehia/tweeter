@@ -1,13 +1,4 @@
-var tweets = require('./tweets-list')
-
-/** DOCUMENT READY AREA */
-$(document).ready(function() {
-    $('.new-tweet').find('textarea').on('keyup counter-change', updateCharCounter)
-    $('.new-tweet').find('form').submit(postNewTweet)
-    $('#compose-tweet').click(slideNewTweetBox)
-})
-
-/** CALLBACKS AND OTHER FUNCTIONS **/
+import { renderTweets } from './tweets-list'
 
 /**
  * When triggered, updates the character counter in the Compose Tweet box
@@ -15,7 +6,7 @@ $(document).ready(function() {
  *
  * @return {void}
  */
-function updateCharCounter() {
+export function updateCharCounter() {
     var charsInputted = $(this).val().trim().length
     var counter = $(this).closest('form').find('.counter')
     counter.text(140 - charsInputted)
@@ -25,7 +16,7 @@ function updateCharCounter() {
     }
 }
 
-function slideNewTweetBox(event) {
+export function slideNewTweetBox(event) {
     event.preventDefault()
 
     $('.new-tweet').slideToggle('fast', function() {
@@ -33,7 +24,7 @@ function slideNewTweetBox(event) {
     })
 }
 
-function postNewTweet(event) {
+export function postNewTweet(event) {
     event.preventDefault()
     var textarea = $(this).find('textarea')
     textarea.val(textarea.val().trim())
@@ -53,7 +44,7 @@ function postNewTweet(event) {
 }
 
 function addNewTweet(tweet) {
-    const newTweetNode = tweets.renderTweets(tweet)
+    const newTweetNode = renderTweets(tweet)
 
     $(newTweetNode).prependTo('#tweets')
                    .find('.tweet-likes-count')

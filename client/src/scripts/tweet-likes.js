@@ -1,12 +1,6 @@
-var Cookies = require('../vendor/js-cookie')
+import * as Cookies from '../vendor/js-cookie'
 
-$(document).ready(function() {
-    // $('#tweets').on('new-load', 'article', hideZeroLikesCount)
-    $('#tweets').on('click', '.tweet-like', increaseLikes)
-    $('#tweets').on('likes-change', '.tweet-likes-count', toggleLikesCount)
-})
-
-function increaseLikes(event) {
+export function increaseLikes(event) {
     event.stopPropagation()
 
     var $article  = $(this).closest('article')
@@ -31,7 +25,7 @@ function increaseLikesCounter() {
     $(this).trigger('likes-change')
 }
 
-function toggleLikesCount(event) {
+export function toggleLikesCount(event) {
     event.stopPropagation()
 
     if(+$(this).text() === 0) {

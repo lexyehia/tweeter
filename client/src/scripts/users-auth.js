@@ -1,17 +1,6 @@
-var Cookies = require('../vendor/js-cookie')
+import * as Cookies from '../vendor/js-cookie'
 
-$(document).ready(function() {
-    checkSession()
-    $('#register-user-form').dialog(registerUserForm)
-    $('#login-user-form').dialog(loginUserForm)
-    $('#login-user-button').click(openLoginDialog)
-    $('#register-user-button').click(openRegisterDialog)
-    $('#logout-user-button').click(logoutUser)
-    $('#register-user-form').submit(registerUser)
-    $('#login-user-form').submit(loginUser)
-})
-
-function checkSession() {
+export function checkSession() {
     if(Cookies.get('user_id')) {
         $('#register-user-button').hide()
         $('#login-user-button').hide()
@@ -23,7 +12,7 @@ function checkSession() {
     }
 }
 
-function registerUser(e) {
+export function registerUser(e) {
     e.preventDefault();
     if ($('#register-user-password').val() !== $('#register-user-vpassword').val()) {
         alert("Passwords don't match");
@@ -34,17 +23,17 @@ function registerUser(e) {
     return false;
 }
 
-function openRegisterDialog(e) {
+export function openRegisterDialog(e) {
     e.stopPropagation();
     $('#register-user-form').dialog('open');
 }
 
-function openLoginDialog(e) {
+export function openLoginDialog(e) {
     e.stopPropagation();
     $('#login-user-form').dialog('open');
 }
 
-function loginUser(e) {
+export function loginUser(e) {
     e.preventDefault();
 
     $.post('/users/login', $(this).serialize(), function() {
@@ -55,14 +44,14 @@ function loginUser(e) {
     })
 }
 
-function logoutUser(e) {
+export function logoutUser(e) {
     e.stopPropagation();
     Cookies.remove('user_id');
     alert('Successfully logged out');
     checkSession();
 }
 
-var registerUserForm = {
+export const registerUserForm = {
     autoOpen: false,
     buttons: [
         {
@@ -82,7 +71,7 @@ var registerUserForm = {
     modal: true,
 }
 
-var loginUserForm = {
+export const loginUserForm = {
     autoOpen: false,
     buttons: [
         {

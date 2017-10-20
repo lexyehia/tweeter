@@ -1,8 +1,4 @@
-$(document).ready(function() {
-    loadTweets()
-})
-
-function loadTweets() {
+export function loadTweets() {
     $.get('/tweets', addAllTweets)
     setTimeout(loadTweets, 120000)
 }
@@ -13,11 +9,11 @@ function addAllTweets(data) {
     $('.tweet-likes-count').trigger('likes-change')
 }
 
-function renderTweets(data) {
+export function renderTweets(data) {
     let str = ''
 
     if (Array.isArray(data)) {
-        for(obj of data) {
+        for(let obj of data) {
             str += createTweetElement(obj)
         }
     } else {
@@ -83,8 +79,4 @@ function parseHumanDate(timeCreated) {
     }
 
     return parseHumanDateRecursive(seconds, secondsArray)
-}
-
-module.exports = {
-    renderTweets
 }
