@@ -54,7 +54,9 @@ function postNewTweet(event) {
 }
 
 function addNewTweet(tweet) {
-    const $newTweetNode = tweets.renderTweets(tweet)
-    $('#tweets').prepend($newTweetNode)
-    $newTweetNode.find('.tweet-likes-count').trigger('likes-change')
+    const newTweetNode = tweets.renderTweets(tweet)
+
+    $(newTweetNode).prependTo('#tweets')
+                   .find('.tweet-likes-count')
+                   .trigger('likes-change')
 }
