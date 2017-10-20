@@ -68,7 +68,7 @@ function parseHumanDate(timeCreated) {
     ]
 
     function parseHumanDateRecursive(seconds, secondsArray) {
-        if (seconds === 0) return 'Just now'
+        if (seconds <= 0) return 'Just now'
 
         let dateWord = ''
         const head = secondsArray.shift()

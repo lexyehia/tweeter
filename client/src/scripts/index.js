@@ -4,7 +4,7 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// Require CSS
+ // Require CSS
 require('webpack-jquery-ui/css')
 require('../styles/layout.scss')
 
