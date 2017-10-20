@@ -1,0 +1,7 @@
+$break-small: 350px;
+$break-large: 1200px;
+
+@mixin square-size($side) {
+    height: $side;
+    width: $side;
+}

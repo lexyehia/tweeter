@@ -15,13 +15,17 @@ section.new-tweet {
         margin:        10px;
     }
 
-    textarea {
-        position: relative;
-        margin:   0 10px 0 10px;
-        width:    364px;
-        padding:  5px;
-    }
+    form > div {
+        padding: 0 10px;
 
+        textarea {
+            position: relative;
+            width:    100%;
+            height:   4.2em;
+            padding:  3px;
+        }
+    }
+    
     #new-tweet-bottom {
         margin:          5px 10px 5px 10px;
         display:         flex;

@@ -54,10 +54,14 @@ section#tweets {
 
             .tweet-author-name {
                 position:    relative;
-                font-size:   170%;
+                font-size:   1.6em;
                 font-weight: 700;
                 margin-left: 10px;
                 margin-top:  15px;
+                @media screen and (max-width: $break-small) {
+                    font-size: 1.3em;
+                    margin-top: 5px;
+                }
             }
 
             .tweet-author-username {
@@ -65,8 +69,12 @@ section#tweets {
                 margin-top:   25px;
                 margin-left:  auto;
                 margin-right: 10px;
-                font-size:    90%;
+                font-size:    0.93em;
                 color:        grey;
+                @media screen and (max-width: $break-small) {
+                    font-size: 0.85em;
+                    margin-top: 10px;
+                }
             }
         }
 
@@ -78,7 +86,7 @@ section#tweets {
             display:         flex;
             align-items:     center;
             justify-content: center;
-            font-size:       107%;
+            font-size:       1.9ex;
         }
 
         footer {

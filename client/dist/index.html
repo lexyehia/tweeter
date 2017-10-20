@@ -6,7 +6,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700,700i" rel="stylesheet">
     <script src="https://use.fontawesome.com/cb2ce4e278.js"></script>
     <script type="text/javascript" src="/bundle.js"></script>
-
   </head>
 
   <body>
@@ -31,26 +30,28 @@
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           <span>Compose</span>
         </li>
-
-      </uL>
+      </ul>
     </nav>
 
     <!-- Page-specific (main) content here -->
     <main class="container">
 
+      <!-- Tweet Composition box -->
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
         <form action="/tweets/" method="post">
-          <textarea id="new-text-input" name="text" placeholder="What are you humming about?"></textarea>
+          <div><textarea id="new-text-input" name="text" placeholder="What are you humming about?"></textarea></div>
           <span id="new-tweet-bottom">
           <span><input type="submit" value="Tweet"></span>
           <span class="counter">140</span></span>
         </form>
       </section>
 
+      <!-- Tweet List -->
       <section id="tweets">
       </section>
 
+      <!-- User Registration Dialog -->
       <form id="register-user-form">
         <label for="name">Name</label>
         <input type="text" id="register-user-name" name="name">
@@ -63,7 +64,7 @@
         <!-- <button type="submit">Register</button> -->
       </form>
 
-
+      <!-- User Login Dialog -->
       <form id="login-user-form">
         <label for="handle">Handle</label>
         <input type="text" id="login-user-handle" name="handle">
@@ -72,6 +73,5 @@
       </form>
 
     </main>
-
   </body>
 </html>
