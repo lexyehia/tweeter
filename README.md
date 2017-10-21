@@ -11,7 +11,7 @@ The commands `npm run build` will recreate the Webpack bundle, and `npm run loca
 ### Dynamic Composition Box
 <center><img src="./lib/ss2.png" width="450"><br></center>
 
-An anonymous user can compose a tweet, which would allow them to post under a randomly generated user profile. The Compose Tweet box is hidden until the 'Compose' button is clicked. The character counter dynamically keeps track of the tweet's character length to keep it under 140.
+Logged in users can compose tweets (both client and server codes will prevent a non-logged-in user from tweeting). The Compose Tweet box is hidden until the 'Compose' button is clicked. The character counter dynamically keeps track of the tweet's character length to keep it under 140.
 
 ### User Registration
 <center><img src="./lib/ss5.png" width="450"><br></center>
@@ -23,7 +23,7 @@ A logged-in user can like other users' tweets (but cannot like their own). The '
 
 ### Responsive Tweets
 <center><img src="./lib/ss4.png" width="250"><br></center>
-The app espouses a responsive design allowing it to be comfortably used on smaller screens. The above screenshot is based on an iPhone 6S screen simulation.
+The app has a responsive design allowing it to be comfortably used on smaller screens. The above screenshot is based on an iPhone 6S screen simulation.
 
 ### Tweets Updated Automatically
 The client automatically pings the server every 2 minutes to check for new tweets. It dynamically replaces the tweets' list with updated ones.
