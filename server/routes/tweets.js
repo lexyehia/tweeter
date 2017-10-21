@@ -5,9 +5,12 @@ const tweetsRoutes  = express.Router()
 const Tweet         = require('../models/tweet')
 const User          = require('../models/user')
 
+/**
+ * GET /tweets 
+ * returns all Tweets and populated with users (in JSON)
+ */
 tweetsRoutes.get("/", function(req, res) {
-    // TODO: Remove password from user populated 
-    Tweet.find({}).sort('-created_at').populate('user').exec((err, tweets) => {
+    Tweet.find({}).sort('-created_at').populate('user', '-password').exec((err, tweets) => {
         if (err) {
             res.status(500).json({ error: err.message })
             return
@@ -17,6 +20,11 @@ tweetsRoutes.get("/", function(req, res) {
     })
 })
 
+/**
+ * POST /tweets
+ * Saves new tweet in database, and sends back saved tweet with user data
+ * back to the client
+ */
 tweetsRoutes.post("/", function(req, res) {
     if (!req.body.text) {
         res.status(400).json({
@@ -37,29 +45,20 @@ tweetsRoutes.post("/", function(req, res) {
                 res.status(500).json({ error: err.message })
                 return
             }
-
             tweet.user = user._id
-
-            tweet.save((err) => {
-                if (err) {
-                    res.status(500).json({ error: err.message })
-                    return
-                } else {
-                    // TODO: Limit the fields of the User to remove password from json
-                    tweet.populate('user', (err, tweet) => {
-                        if (err) throw err
-                        res.json(tweet)
-                    })
-                }
-            })
+            saveTweet(tweet)
         })
     } else {
+        saveTweet(tweet)
+    }
+
+    function saveTweet(tweet) {
         tweet.save((err) => {
             if (err) {
                 res.status(500).json({ error: err.message })
                 return
             } else {
-                tweet.populate('user', (err, tweet) => {
+                tweet.populate('user', '-password', (err, tweet) => {
                     if (err) throw err
                     res.json(tweet)
                 })
@@ -68,6 +67,10 @@ tweetsRoutes.post("/", function(req, res) {
     }
 })
 
+/**
+ * PUT /tweets/like
+ * Increases the Like property of a specific tweet
+ */
 tweetsRoutes.put("/like", function(req, res) {
 
     Tweet.findById(req.body.id, (err, tweet) => {
@@ -76,16 +79,14 @@ tweetsRoutes.put("/like", function(req, res) {
             return
         }
 
-        tweet.likes = (tweet.likes || 0) + 1
+        tweet.likes++
+
         tweet.save((err) => {
             if (err) {
                 res.status(500).json({error: err.message})
                 return
             } else {
-                tweet.populate((err, tweet) => {
-                    if (err) throw err
-                    res.json(tweet)
-                })
+                res.sendStatus(200)
             }
         })
     })

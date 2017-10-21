@@ -1,21 +1,17 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
-// Require CSS
+/* Importing CSS */
 import 'webpack-jquery-ui/css'
 import '../styles/layout.scss'
 
-// Require JS
+/* Importing JS */
 import 'webpack-jquery-ui'
 import * as auth from './users-auth'
 import { updateCharCounter, postNewTweet, slideNewTweetBox } from './compose-tweet'
 import { loadTweets } from './tweets-list'
 import { increaseLikes, toggleLikesCount } from './tweet-likes'
 
-// Document Ready section
+/**
+ * Functions invoked when page is done loading, including event listeners
+ */
 $(document).ready(function() {
     auth.checkSession()    
     loadTweets()

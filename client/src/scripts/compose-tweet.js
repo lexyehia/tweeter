@@ -3,8 +3,6 @@ import { renderTweets } from './tweets-list'
 /**
  * When triggered, updates the character counter in the Compose Tweet box
  * based on the value of the textarea's character length
- *
- * @return {void}
  */
 export function updateCharCounter() {
     var charsInputted = $(this).val().trim().length
@@ -18,6 +16,10 @@ export function updateCharCounter() {
     }
 }
 
+/**
+ * Function to slide the Compose Tweet box when the 
+ * 'Compose' button is clicked
+ */
 export function slideNewTweetBox(event) {
     event.preventDefault()
 
@@ -26,6 +28,10 @@ export function slideNewTweetBox(event) {
     })
 }
 
+/**
+ * This validates the Tweet's length before sending it via Ajax 
+ * to the server, then callsback the addNewTweet() function
+ */
 export function postNewTweet(event) {
     event.preventDefault()
     var textarea = $(this).find('textarea')
@@ -45,6 +51,11 @@ export function postNewTweet(event) {
     }
 }
 
+/**
+ * Takes the new tweet as its parameter (received as a response from 
+ * the server, when postNewTweet() is invoked) and pushes that new 
+ * tweet to the top of the Tweets list
+ */
 function addNewTweet(tweet) {
     const newTweetNode = renderTweets(tweet)
 

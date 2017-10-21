@@ -4,6 +4,9 @@ const chance   = new Chance()
 const md5      = require('md5')
 const bcrypt   = require('bcrypt')
 
+/**
+ * User Model Schema
+ */
 let userSchema = new mongoose.Schema({
     name: String,
     avatars: {
@@ -25,6 +28,11 @@ let userSchema = new mongoose.Schema({
     }
 }, {collection: 'users'})
 
+/**
+ * Pre-save hook, if User object is new, it adds the '@' prefix
+ * to the user's handle, generates random avatars and encrypts
+ * the password before persisting to database
+ */
 userSchema.pre('save', function(next) {
     if (this.isNew) {
         this.handle = '@' + this.handle
@@ -34,6 +42,10 @@ userSchema.pre('save', function(next) {
     next()
 })
 
+/**
+ * This generates a user based on the Chance package's
+ * randomizing names and info
+ */
 userSchema.statics.generateRandomUser = function() {
     const gender    = chance.gender()
     const firstName = chance.first({gender: gender})
@@ -57,6 +69,11 @@ userSchema.statics.generateRandomUser = function() {
     return new this({ name, handle, password: '1' })
 }
 
+/**
+ * This looks up a user on the basis of their handle, then
+ * compares their password. Returns the user if successful, 
+ * otherwise false
+ */
 userSchema.statics.comparePasswords = function(handle, password, cb) {
     User.findOne({handle: `@${handle}`}, (err, user) => {
         if (err) throw err
@@ -69,6 +86,9 @@ userSchema.statics.comparePasswords = function(handle, password, cb) {
     })
 }
 
+/**
+ * Generates random avatars using vanillicon
+ */
 userSchema.methods.generateAvatars = function() {
     const avatarUrlPrefix = `https://vanillicon.com/${md5(this.handle)}`
 
@@ -79,6 +99,9 @@ userSchema.methods.generateAvatars = function() {
     }
 }
 
+/**
+ * Validates that a user's handle is unique
+ */
 function validateUniqueHandle(value, respond) {
     User.find().where({handle: value}).limit(1).count((err, count) => {
         count === 0 ? respond(true) : respond(false)

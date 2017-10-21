@@ -1,14 +1,34 @@
+/**
+ * Makes an Ajax GET request to receive new Tweets data from the server,
+ * thereafter recursively calls itself on a 2-minute delay. 
+ * Callsback addAllTweets() with the tweets json data.
+ */
 export function loadTweets() {
     $.get('/tweets', addAllTweets)
     setTimeout(loadTweets, 120000)
 }
 
+/**
+ * Calls renderTweets() on the tweets json, then takes the resulting 
+ * jQuery HTML Node and replaces the content of the '#tweets' DOM container 
+ * with all the new tweets
+ * 
+ *  @param {json} data 
+ */
 function addAllTweets(data) {
     var html = renderTweets(data)
     $('#tweets').html(html)
     $('.tweet-likes-count').trigger('likes-change')
 }
 
+/**
+ * Calls createTweetElement() on the tweets json data. The data parameter 
+ * can be a single json tweet object or an array of them. 
+ * 
+ * @export
+ * @param {object|array} data 
+ * @returns {JQuery.Node[]}
+ */
 export function renderTweets(data) {
     let str = ''
 
@@ -23,6 +43,13 @@ export function renderTweets(data) {
     return $.parseHTML(str)
 }
 
+/**
+ * Returns a string that includes the HTML of a single tweet article,
+ * populated with the data from the json object
+ * 
+ * @param {object} data 
+ * @returns {string}
+ */
 function createTweetElement(data) {
 
     return   `<article data-id="${data._id}">
@@ -44,12 +71,26 @@ function createTweetElement(data) {
               </article>`
 }
 
+/**
+ * Function to sanitize the HTML
+ * 
+ * @param {string} str 
+ * @returns {string}
+ */
 function escape(str) {
     var div = document.createElement('div')
     div.appendChild(document.createTextNode(str))
     return div.innerHTML
 }
 
+/**
+ * Recursive function that takes a POSIX timestamp string, calculates
+ * the age of the tweet, and provides a string which describes that age using 
+ * the most relevant unit of time (e.g. '23 days ago').
+ * 
+ * @param {string} timeCreated 
+ * @returns {string}
+ */
 function parseHumanDate(timeCreated) {
     const created = new Date(timeCreated)
     const seconds = Math.floor((Date.now() - created) / 1000)

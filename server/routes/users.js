@@ -5,10 +5,15 @@ const usersRoutes  = express.Router()
 const User         = require('../models/user')
 const bcrypt       = require('bcrypt')
 
+/**
+ * POST /users/new 
+ * Persists the new user to database, then sends a set-cookie
+ * response upon successful save
+ */
 usersRoutes.post("/new", (req, res) => {
     let user = new User({
+        name:     req.body.name,        
         handle:   req.body.handle,
-        name:     req.body.name,
         password: req.body.password
     })
 
@@ -23,7 +28,12 @@ usersRoutes.post("/new", (req, res) => {
     })
 })
 
-usersRoutes.post("/login", function(req, res) {
+/**
+ * POST /users/login
+ * Compares the inputted password with user password from DB
+ * then sends a set-cookie response to log the user in
+ */
+usersRoutes.post("/login", (req, res) => {
     User.comparePasswords(req.body.handle, req.body.password, (user) => {
         if (user) {
             res.cookie('user_id', user._id.toString())
