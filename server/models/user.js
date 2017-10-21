@@ -29,9 +29,8 @@ let userSchema = new mongoose.Schema({
 }, {collection: 'users'})
 
 /**
- * Pre-save hook, if User object is new, it adds the '@' prefix
- * to the user's handle, generates random avatars and encrypts
- * the password before persisting to database
+ * If user object is new, adds '@' to handle, generates random avatars,
+ * and encrypts the password before persisting to database
  */
 userSchema.pre('save', function(next) {
     if (this.isNew) {
@@ -41,33 +40,6 @@ userSchema.pre('save', function(next) {
     }
     next()
 })
-
-/**
- * This generates a user based on the Chance package's
- * randomizing names and info
- */
-userSchema.statics.generateRandomUser = function() {
-    const gender    = chance.gender()
-    const firstName = chance.first({gender: gender})
-    const lastName  = chance.last()
-    const name  = firstName + " " + lastName
-    let handle = ''
-
-    if (Math.random() > 0.5) {
-        let prefix = chance.prefix({gender: gender})
-        prefix  = prefix.replace(".", "")
-        handle += prefix
-    }
-
-    handle += lastName
-
-    if (Math.random() > 0.5) {
-        const suffix = Math.round(Math.random() * 100)
-        handle += suffix;
-    }
-
-    return new this({ name, handle, password: '1' })
-}
 
 /**
  * This looks up a user on the basis of their handle, then

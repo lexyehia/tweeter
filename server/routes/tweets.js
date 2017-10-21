@@ -31,39 +31,40 @@ tweetsRoutes.post("/", function(req, res) {
             error: 'invalid request: no data in POST body'
         })
         return
-    }
-
-    let tweet = new Tweet({
-        content: {
-            text: req.body.text
-        }
-    })
-
-    if(req.cookies['user_id']) {
+    } else if(req.cookies['user_id']) {
         User.findById(req.cookies['user_id'], (err, user) => {
             if (err) {
                 res.status(500).json({ error: err.message })
                 return
+            } else if (!user) {
+                res.status(500).json({ error: 'User not found' })
+                return
             }
-            tweet.user = user._id
-            saveTweet(tweet)
+
+            let tweet = new Tweet({
+                content: {
+                    text: req.body.text
+                },
+                user: user._id                
+            })
+
+            tweet.save((err) => {
+                if (err) {
+                    res.status(500).json({ error: err.message })
+                    return
+                } else {
+                    tweet.populate('user', '-password', (err, tweet) => {
+                        if (err) throw err
+                        res.json(tweet)
+                    })
+                }
+            })
         })
     } else {
-        saveTweet(tweet)
-    }
-
-    function saveTweet(tweet) {
-        tweet.save((err) => {
-            if (err) {
-                res.status(500).json({ error: err.message })
-                return
-            } else {
-                tweet.populate('user', '-password', (err, tweet) => {
-                    if (err) throw err
-                    res.json(tweet)
-                })
-            }
+        res.status(403).json({
+            error: 'Please log in first'
         })
+        return
     }
 })
 

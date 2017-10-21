@@ -1,3 +1,4 @@
+import * as Cookies from '../vendor/js-cookie'
 import { renderTweets } from './tweets-list'
 
 /**
@@ -40,6 +41,9 @@ export function postNewTweet(event) {
 
     if (!input) {
         alert('Please enter some text first!')
+
+    } else if (!Cookies.get('user_id')) {
+        alert("You're not logged in!")
 
     } else if (input.length > 140) {
         alert('Your tweet is way too long!')
