@@ -8,7 +8,7 @@
     "start": "node server/index.js",
     "local": "webpack --progress --optimize-minimize && ./node_modules/.bin/nodemon --watch server -e js server/index.js",
     "build": "webpack --progress --optimize-minimize",
-    "postinstall": "webpack -p --config ./webpack.config.js --progress"
+    "postinstall": "webpack -p --config ./webpack.config.js --optimize-minimize"
   },
   "author": "Chad Yehia",
   "license": "ISC",

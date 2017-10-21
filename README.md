@@ -3,6 +3,7 @@
 
 Welcome to my Tweeter project! To experience a live version of this app, it's currently hosted on Heroku at http://cy-tweeter.herokuapp.com.
 
+If you would like to clone the repo and run the app locally, first `npm install` then `npm run local` (it will create the Webpack bundle first, then start the server at port 8080). 
 ## Functionalities
 
 ### Dynamic Composition Box
