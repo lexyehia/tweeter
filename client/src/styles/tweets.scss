@@ -13,9 +13,9 @@ section#tweets {
     article {
         height:           200px;
         background-color: #ffffff;
-        border:           1px solid #cfcfcf;
+        border:           1px solid #f6f6f6;
         border-radius:    5px;
-        margin:           1em 0;
+        margin:           1ex 0;
         overflow:         hidden;
 
         &:hover {
@@ -90,7 +90,7 @@ section#tweets {
         }
 
         footer {
-            position:   absolute;
+            position:   relative;
             height:     25px;
             width:      100%;
             border-top: 1px solid #cfcfcf;
